@@ -1,0 +1,27 @@
+<article id="center_col">
+    {$total_users}: {$totusers_n}<br />
+    {$total_posts_profiles}: {$totpostsprofiles_n}<br />
+    {$total_comments_profiles}: {$totcommentsprofiles_n}<br /><br />
+
+    {$total_projects}: {$totprojects_n}<br />
+    {$total_posts_projects}: {$totpostsprojects_n}<br />
+    {$total_comments_projects}: {$totcommentsprojects_n}<br /><br />
+
+    {$total_online_users}: {$totonlineusers_n}<br />
+    {$hidden_users}:  {$tothiddenusers_n}<br />
+    <br />
+</article>
+<aside id="right_col">
+    <div class="title">
+        {$user_menu}
+    </div>
+    <div class="box_menu">
+        <ul>
+            <a href="/"><li><img src="images/home-dark.png">Home</li></a>
+            <a href="/pm.php"><li><img src="images/pm-dark.png">{$pm}</li></a>
+            <a href="/{$myusername4link_n}"><li><img src="images/prof.png">{$profile}</li></a>
+            <a href="/preferences.php"><li><img src="images/settings.png">{$preferences}</li></a>
+            <a href="/" id="logout" data-tok="{$tok_n}"><li><img src="images/exit.png">{$logout}</li></a>
+        </ul>
+    </div>
+</aside>

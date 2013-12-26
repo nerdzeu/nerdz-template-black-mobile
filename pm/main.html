@@ -1,0 +1,28 @@
+<aside id="left_col">
+  {$pm_descr}
+</aside>
+<article id="center_col">
+    <ul class="nav">
+      <li class="title" id="form">{$compose}</li>
+      <li class="title" id="inbox">{$inbox}</li>
+    </ul>
+
+    <br />
+    <div id="content" class="page">
+        
+    </div>
+</article>
+<aside id="right_col">
+    <div class="title">
+        {$user_menu}
+    </div>
+    <div class="box_menu">
+        <ul>
+            <a href="/"><li><img src="images/home-dark.png">Home</li></a>
+            <a href="/pm.php"><li><img src="images/pm-dark.png">{$pm}</li></a>
+            <a href="/{$myusername4link_n}"><li><img src="images/prof.png">{$profile}</li></a>
+            <a href="/preferences.php"><li><img src="images/settings.png">{$preferences}</li></a>
+            <a href="/" id="logout" data-tok="{$tok_n}"><li><img src="images/exit.png">{$logout}</li></a>
+        </ul>
+    </div>
+</aside>
