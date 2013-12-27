@@ -71,22 +71,21 @@ $(document).ready(function() {
       $("#res").html(data.message);
     });
   }).on("change",".langsel",function(e){
-    $("select").change(function() {
+        $("#res").text('...');
       N.json.post('/pages/preferences/language.html.json.php?action='+$(this).data("act"),$(this).parent().serialize(),function(obj) {
-        $("#res").text(obj.message+'...');
+        $("#res").text(obj.message);
         if(obj.status == 'ok')
         {
           setTimeout(function() {
             document.location.reload();
           },1500);
         }
-      });
-    });
+      }); 
   }).on("submit","#themesfrm",function(e){
     e.preventDefault();
+    $("#res").html('...');
     N.json.post('/pages/preferences/themes.html.json.php',$(this).serialize(),function(obj) {
       $("#themesfrm input[type=submit]").val(obj.message+'...');
-      $("#res").html('...');
       if(obj.status == 'ok')
       {
         setTimeout(function() {

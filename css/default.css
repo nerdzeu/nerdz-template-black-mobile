@@ -405,14 +405,11 @@ ul.nav li
 
 .nerdz_message > div
 {
-    max-height: 10000px;
-    transition: max-height 10s;
     box-shadow: 0 0 0 #000;
 }
 
 .nerdz_message > div.compressed
 {
-    transition: 0s;
     width:100%;
     max-height:200px;
     overflow:hidden;
@@ -480,7 +477,7 @@ ul.nav li
 
 .news
 {
-    background-color: #FFF;
+    background-color: #FFF; 
     color: #000;
     clear: left;
 }
@@ -491,6 +488,7 @@ ul.nav li
     background-color: #BDBDBD;
     color: #000;
     margin-bottom: 8px;
+    max-width: 98%;
 }
 
 .nerdz_comments br, .nerdz_message br
