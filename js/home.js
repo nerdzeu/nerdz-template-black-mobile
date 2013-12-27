@@ -38,6 +38,16 @@ $(document).ready(function() {
         fixHeights();
     };
 
+    plist.on('click',".spoiler",function(){
+      if($(this).data("parsed")) return;
+      $.each($(this).find("img"),function(){ 
+        m = (117-$(this).height())/2;
+        if (m>1)
+          $(this).css("margin-top", m)
+      })
+      $(this).data("parsed","1");
+    });
+    
     plist.on('click','.more',function() {
         var me = $(this), par = me.parent(), jenk = par.prev();
         par.removeClass("shadowed");
