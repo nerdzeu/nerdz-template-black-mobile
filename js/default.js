@@ -42,21 +42,21 @@ $(document).ready(function() {
     }
     else
     {
-        $('#title_left').click(function() {
-          if(moving)return;
-          moving=1;
-            if( $("#right_col").hasClass("shown") ) {
-                $("#right_col").removeClass("shown").hide();
-                $("#center_col").css("left","0");
-            }
-            if( ! $("#left_col").hasClass("shown") ) {
-                $("#left_col").show();
-                $("#center_col").animate({ left : "70%" }, 500, function() { $("#left_col").addClass("shown"); moving=0; } );
-            } else {
-              $("#center_col").animate({ left: "0px" }, 500 , function() { $("#left_col").removeClass("shown").hide(); moving=0; } );
-            }
-          return false;
-          });
+      $('#title_left').click(function() {
+        if(moving)return;
+        moving=1;
+          if( $("#right_col").hasClass("shown") ) {
+              $("#right_col").removeClass("shown").hide();
+              $("#center_col").css("left","0");
+          }
+          if( ! $("#left_col").hasClass("shown") ) {
+              $("#left_col").show();
+              $("#center_col").animate({ left : "70%" }, 500, function() { $("#left_col").addClass("shown"); moving=0; } );
+          } else {
+            $("#center_col").animate({ left: "0px" }, 500 , function() { $("#left_col").removeClass("shown").hide(); moving=0; } );
+          }
+        return false;
+        });
     }
 
    $('#title_right').click(function() {
@@ -79,7 +79,13 @@ $(document).ready(function() {
 
     //elementi singoli
     $("iframe").attr('scrolling','no'); //dato che il validatore non li vuole e con i css overflow:hidden non funge
-    $("body").append($('<br />')); //per fare funzionare infinte scrolling sempre
+    $("body").append($('<br />')).on("mousedown","a",function(e) {
+      if($(this).attr("href").match(/^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/))
+      {
+        e.preventDefault();
+        $(this).attr("onclick","").attr("href",$(this).attr("href").replace(/^(https?:\/\/)www(\.nerdz\.eu\/.*)/, "$1mobile$2"));
+      }
+    });
     $("#rightmenu_title").click(function() {$("#rightmenu").toggleClass("ninja");});
     
     // load the prettyprinter
