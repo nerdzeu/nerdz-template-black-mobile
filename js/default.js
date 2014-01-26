@@ -732,7 +732,9 @@ $(document).ready(function() {
             $("#center_col").animate({left:0}, 500);
         }
       }, 
-      allowPageScroll:"vertical"
+      allowPageScroll:"vertical",
+      threshold: 25,
+      excludedElements:$.fn.swipe.defaults.excludedElements+", .title, .qu_user, #site_title, .more"
     });
     
     //end plist into events
