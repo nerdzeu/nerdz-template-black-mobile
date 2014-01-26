@@ -725,7 +725,7 @@ $(document).ready(function() {
             $("#center_col").css("left", sign*distance)
           }
           if(phase=="end")
-            (distance>150) ?
+            (distance>$("aside").width()/2) ?
               $("#center_col").animate({left:screen.width*0.7*sign}, 500, function(){$(col).addClass("shown")}) :
               $("#center_col").animate({left:0}, 500);
           if(phase=="cancel")
