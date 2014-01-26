@@ -33,7 +33,7 @@
 <script type="application/javascript">
     $(document).ready(function() {
         $("#resfrm").submit(function(event) {
-            $("#error").html($("#loadtxt").data('loading'));
+            $("#error").html(N.getLangData().LOADING);
             event.preventDefault();
             N.json.resetPassword($(this).serialize(),function(d) {
                 $("#error").html(d.message);

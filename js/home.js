@@ -1,10 +1,11 @@
 $(document).ready(function() {
       // append version information
-     $("#left_col .title").eq (0).html ("NERDZ<small>mobile</small> <span style='font-weight: normal'><a href='/Mobile+Nerdz:' style='color: #000 !important'>[" + _mobileVersion + "]</a></span>");
-
+     $.ajax({url:"/tpl/1/VERSION"}).done(function(d){
+      $("#left_col .title").eq(0).html("NERDZ<small>mobile</small> <span style='font-weight: normal'><a href='/Mobile+Nerdz:' style='color: #000 !important'>[" + $.trim(d) + "]</a></span>");
+     })
     //tutti gli eventi ajax che evvengono in plist sono nel formato pilst.on(evento,[selettore],function(...){...});
     var plist = $("#postlist");
-    var loading = $("#loadtxt").data('loading'); //il div è nell'header
+    var loading = N.getLangData().LOADING; //il div è nell'header
     var lang = null; /* globale dato che la uso anche altrove */
     var load = false; //gestisce i caricamenti ed evita sovrapposizioni. Dichiarata qui che è il foglio che viene incluso di default ovunque e per primo
     plist.html('<h1>'+loading+'...</h1>');

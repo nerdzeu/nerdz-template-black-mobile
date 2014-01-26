@@ -20,12 +20,10 @@ $(function () {
         }, 100);
     });
 });
-    
-_mobileVersion = "2.1.1";
-  
+
 $(document).ready(function() {
 
-    var loading = $("#loadtxt").data('loading'); //il div è nell'header
+    var loading = N.getLangData().LOADING; //il div è nell'header
 	
     if(localStorage["font-size"]) $("body").css("font-size",localStorage["font-size"]+"px");
 
@@ -80,7 +78,7 @@ $(document).ready(function() {
     //elementi singoli
     $("iframe").attr('scrolling','no'); //dato che il validatore non li vuole e con i css overflow:hidden non funge
     $("body").append($('<br />')).on("mousedown","a",function(e) {
-      if($(this).attr("href").match(/^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/))
+      if($(this).attr("href") && $(this).attr("href").match(/^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/))
       {
         e.preventDefault();
         $(this).attr("onclick","").attr("href",$(this).attr("href").replace(/^(https?:\/\/)www(\.nerdz\.eu\/.*)/, "$1mobile$2"));
@@ -696,7 +694,46 @@ $(document).ready(function() {
         document.location.reload();
     });
     
-
+    $("#body").swipe( {
+      swipeStatus:function(event, phase, direction, distance, duration, fingers) {
+        if(direction=="up"||direction=="down") return;
+        if(moving) return false;
+        if(direction=="left") {
+          sign = -1;
+          col = "#right_col";
+          nop = "#left_col";
+        } else {
+          sign = 1;
+          col = "#left_col";
+          nop = "#right_col";
+        }
+        if($(col).hasClass("shown")) return;
+        if($(nop).hasClass("shown")) {
+          if(phase=="move" && distance>25)
+            $("#center_col").css("left", (screen.width*0.7-distance) > 0 ? sign*(-screen.width*0.7+distance) : 0 );
+          if(phase=="end")
+            (distance>200) ?
+              $("#center_col").animate({left:0}, 500, function() {$(nop).hide().removeClass("shown")}) :
+              $("#center_col").animate({left:-screen.width*0.7*sign}, 500);
+          if(phase=="cancel") 
+            $("#center_col").animate({left:-screen.width*0.7*sign}, 500);
+        } else {
+          if(phase=="move" && distance>25) 
+          {
+            $(nop).hide();
+            $(col).show();
+            $("#center_col").css("left", sign*distance)
+          }
+          if(phase=="end")
+            (distance>200) ?
+              $("#center_col").animate({left:screen.width*0.7*sign}, 500, function(){$(col).addClass("shown")}) :
+              $("#center_col").animate({left:0}, 500);
+          if(phase=="cancel")
+            $("#center_col").animate({left:0}, 500);
+        }
+      }
+    });
+    
     //end plist into events
     setInterval(function() {
         var nc = $("#notifycounter"), val = parseInt(nc.html());

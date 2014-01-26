@@ -113,7 +113,7 @@ aside{
 
 #center_col
 {
-    width: 98%;
+    width: 98.5%;
     min-height: 500px;
     height: auto;
     position:absolute;
@@ -541,12 +541,11 @@ ul.nav li
 
 .img_frame, .yt_frame
 {
-  float:left;
-  display: table-cell;
+  display: block;
+  outline: 1px #eee solid;
   vertical-align: bottom;
   text-align: center;
-  float:left;
-  margin-top:0px; 
+  margin-top:1px; 
   padding:0px;
   cursor: pointer; 
   border: 1px solid #FFF;
@@ -573,8 +572,9 @@ ul.nav li
     margin: auto;
 }
 
-.img_frame-extended
+.img_frame.img_frame-extended
 {
+  outline: none;
   width: auto;
   height: auto;
   border: none;
