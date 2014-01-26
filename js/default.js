@@ -712,7 +712,7 @@ $(document).ready(function() {
           if(phase=="move" && distance>25)
             $("#center_col").css("left", (screen.width*0.7-distance) > 0 ? sign*(-screen.width*0.7+distance) : 0 );
           if(phase=="end")
-            (distance>200) ?
+            (distance>$("aside").width()/2) ?
               $("#center_col").animate({left:0}, 500, function() {$(nop).hide().removeClass("shown")}) :
               $("#center_col").animate({left:-screen.width*0.7*sign}, 500);
           if(phase=="cancel") 
