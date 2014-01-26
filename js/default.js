@@ -731,7 +731,8 @@ $(document).ready(function() {
           if(phase=="cancel")
             $("#center_col").animate({left:0}, 500);
         }
-      }
+      }, 
+      allowPageScroll:"vertical"
     });
     
     //end plist into events
