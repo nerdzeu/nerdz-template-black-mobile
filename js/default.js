@@ -693,7 +693,7 @@ $(document).ready(function() {
         localStorage.setItem ('has-dark-theme', ( localStorage.getItem ('has-dark-theme') == 'yep' ? 'nope' : 'yep' ));
         document.location.reload();
     });
-    
+    if(localStorage.getItem("swipe"))
     $("#body").swipe( {
       swipeStatus:function(event, phase, direction, distance, duration, fingers) {
         if(direction=="up"||direction=="down") return;
