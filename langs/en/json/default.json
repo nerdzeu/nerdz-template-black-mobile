@@ -220,7 +220,7 @@
     "EVERY_COMMENT": "All comments",
     "EVERY_MSG": "All messages",
     "USER_MENU": "User Menu",
-    "DESKTOPAVAILABLE":"Vuoi passare alla versione desktop?",
-    "GOTODESKTOP": "Vai alla versione desktop",
-    "STAYONMOBILE": "Resta sul sito mobile"
+    "DESKTOPAVAILABLE":"Go to NERDZ full website?",
+    "GOTODESKTOP": "Go to desktop version",
+    "STAYONMOBILE": "Stay on mobile version"
 }

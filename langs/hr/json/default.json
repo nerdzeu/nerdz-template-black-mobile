@@ -219,7 +219,7 @@
     "EVERY_COMMENT": "Svi komentari",
     "EVERY_MSG": "Svi postovi",
     "USER_MENU": "korisni\u010dki izbornik",
-    "DESKTOPAVAILABLE":"Vuoi passare alla versione desktop?",
-    "GOTODESKTOP": "Vai alla versione desktop",
-    "STAYONMOBILE": "Resta sul sito mobile"
+    "DESKTOPAVAILABLE":"Idi na desktop web stranice?",
+    "GOTODESKTOP": "Idi na desktop web stranice",
+    "STAYONMOBILE": "Ostani na mobilne web stranice"
 }
