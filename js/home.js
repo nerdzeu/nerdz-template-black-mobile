@@ -39,6 +39,54 @@ $(document).ready(function() {
         fixHeights();
     };
 
+        $("#footersearch").on('submit',function(e) {
+        e.preventDefault();
+        var plist = $("#postlist");
+        var qs =  $.trim($("#footersearch input[name=q]").val());
+        var num = 10; //TODO: numero di posts, parametro?
+
+        if(qs == '') {
+            return false;
+        }
+
+        var manageResponse = function(d)
+        {
+            plist.html(d);
+            //variabile booleana messa come stringa data che nel dom posso salvare solo stringhe
+            sessionStorage.setItem('searchLoad', "1"); //e' la variabile load di search, dato che queste azioni sono in questo file js ma sono condivise da tutte le pagine, la variabile di caricamento dev'essere nota a tutte
+        };
+
+        if(plist.data('type') == 'project')
+        {
+            if(plist.data('location') == 'home')
+            {
+                N.html.search.globalProjectPosts(num, qs, manageResponse);
+            }
+            else
+            {
+                if(plist.data('location') == 'project')
+                {
+                    N.html.search.specificProjectPosts(num, qs, plist.data('projectid'),manageResponse);
+                }
+            }
+        }
+        else
+        {
+            if(plist.data('location') == 'home')
+            {
+                N.html.search.globalProfilePosts(num, qs, manageResponse);
+            }
+            else
+            {
+                if(plist.data('location') == 'profile')
+                {
+                    N.html.search.specificProfilePosts(num, qs, plist.data('profileid'),manageResponse);
+                }
+            }
+        }
+        plist.data('mode','search');
+    });
+
     plist.on('click',".spoiler",function(){
       if($(this).data("parsed")) return;
       $.each($(this).find("img"),function(){ 
@@ -94,7 +142,6 @@ $(document).ready(function() {
             plist.data('type','profile');
             plist.data('mode','std');
             hideHidden();
-            console.log($expand);
             $("#nerdzselect").attr("src",$expand);
             load = true;
         });
@@ -196,7 +243,7 @@ $(document).ready(function() {
     $("#stdfrm").on('submit',function(e) {
         e.preventDefault();
         $("#pmessage").html(loading+'...');
-        N.json.profile.newPost({message: $("#frmtxt").val(), to: 0 },function(data) {
+        N.json.profile.newPost({message: $("#frmtxt").val().autoLink(), to: 0 },function(data) {
             if(data.status == 'ok') {
                 $("#frmtxt").val('');
                 load = false;
