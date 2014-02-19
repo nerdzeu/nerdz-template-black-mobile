@@ -219,5 +219,8 @@
     "EXPAND": "Expand",
     "EVERY_COMMENT": "All comments",
     "EVERY_MSG": "All messages",
-    "USER_MENU": "User Menu"
+    "USER_MENU": "User Menu",
+    "DESKTOPAVAILABLE":"Go to NERDZ full website?",
+    "GOTODESKTOP": "Go to desktop version",
+    "STAYONMOBILE": "Stay on mobile version"
 }

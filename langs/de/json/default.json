@@ -218,5 +218,8 @@
     "EXPAND": "Erweitern",
     "EVERY_COMMENT": "Alle kommentare",
     "EVERY_MSG": "Alle beitr\u00e4ge",
-    "USER_MENU": "Benutzermen\u00fc"
+    "USER_MENU": "Benutzermen\u00fc",
+    "DESKTOPAVAILABLE":"Gehen Sie auf Desktop-Website?",
+    "GOTODESKTOP": "Gehen Sie auf Desktop-Website",
+    "STAYONMOBILE": "Bleiben Sie auf der mobilen Website"
 }
