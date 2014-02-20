@@ -13,7 +13,7 @@ $(document).ready(function() {
             last = mess.length > 1 ? mess.eq (mess.length - 2) : null; // request every message if cnum < 2.
             pmid = last ? last.data('pmid') : 0;
         }
-        N.json.pm.send({ to: $("#to").val(), message: $("#message").val() },function(d) {
+        N.json.pm.send({ to: $("#to").val(), message: $("#message").val().autoLink() },function(d) {
                 $('#res').html(d.message);
                 if(d.status == 'ok') {
                     $("#message").val('');

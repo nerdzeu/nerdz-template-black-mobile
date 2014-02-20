@@ -14,7 +14,7 @@ $(document).ready(function() {
              news = '0';
          }
 
-         N.json.project.newPost({message: $("#frmtxt").val(), to: $(this).data('to'), news: news },function(data) {
+         N.json.project.newPost({message: $("#frmtxt").val().autoLink(), to: $(this).data('to'), news: news },function(data) {
             if(data.status == 'ok') {
                 $("#showpostlist").click();
                 $("#frmtxt").val('');

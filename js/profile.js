@@ -4,7 +4,7 @@ $(document).ready(function() {
     $("#stdfrm").on('submit',function(event) {
         event.preventDefault();
          $("#pmessage").html(loading+'...');
-        N.json.profile.newPost({message: $("#frmtxt").val(), to: $(this).data('to') },function(data) {
+        N.json.profile.newPost({message: $("#frmtxt").val().autoLink(), to: $(this).data('to') },function(data) {
             if(data.status == 'ok') {
                 $("#showpostlist").click();
                 $("#frmtxt").val('');

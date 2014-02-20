@@ -8,7 +8,7 @@
                   <li style="padding:0px;">
                     <form id="footersearch" style="position:relative">
                         <input type="text" name="q" placeholder="{$search}" style="height:40px!important; width:100% !important; position:absolute; top:0px; left:0px; border:none; padding:0px; border-radius:0px "/>
-                        <input type="image" src="images/search.png" style="position:absolute; top:0px; right:0px; height:40px;width:40px" id="search_btn">
+                        <input type="submit" value="" id="search_btn">
                       </form>
                     </li>
                     <li><a id="profilePostList" href="#">NERDZ</a>
@@ -70,7 +70,7 @@
       <div id="fast_nerdz">
           <div>
               <form id="stdfrm">
-                  <textarea id="frmtxt" name="message" style="width: 99.5%; height: 60px"></textarea>
+                  <textarea id="frmtxt" name="message"></textarea>
                   <input type="submit" value="{$nerdz_it}" style="float: right; margin-top:5px" />
                   <button type="button" style="float:left; margin-top:5px" onclick="window.open('/bbcode.php')">BBCode</button>
                   <div id="pmessage" class="error"></div>

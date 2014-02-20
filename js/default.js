@@ -1,3 +1,20 @@
+if(!String.prototype.autoLink) {
+    String.prototype.autoLink = function() {
+    if(localStorage.getItem("no-autolink")!=undefined) return this;
+    str=this;
+    var pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse)\])/gi;
+    urls = this.match(pattern); 
+    for (i in urls)
+    {
+      if(urls[i].match(/\.(png|gif|jpg|jpeg)$/))
+        str = str.replace(urls[i],"[img]"+(urls[i].match(/(^|\s+)https?:\/\//)?"":"http://")+urls[i]+"[/img]");
+      if(urls[i].match(/youtube\.com|https?:\/\/youtu\.be/))
+        str = str.replace(urls[i],"[yt]"+$.trim(urls[i])+"[/yt]");
+    }
+    return str.replace(pattern, "$1[url]$2[/url]").replace(/\[(\/)?noparse\]/gi,"");
+  };
+}
+
 $(function () {
     var scroll_timer;
     var displayed = false;
@@ -148,54 +165,6 @@ $(document).ready(function() {
       $(this).parent().toggleClass("qu_main-extended");
     });
 
-    $("#footersearch").on('submit',function(e) {
-        e.preventDefault();
-        var plist = $("#postlist");
-        var qs =  $.trim($("#footersearch input[name=q]").val());
-        var num = 10; //TODO: numero di posts, parametro?
-
-        if(qs == '') {
-            return false;
-        }
-
-        var manageResponse = function(d)
-        {
-            plist.html(d);
-            //variabile booleana messa come stringa data che nel dom posso salvare solo stringhe
-            sessionStorage.setItem('searchLoad', "1"); //e' la variabile load di search, dato che queste azioni sono in questo file js ma sono condivise da tutte le pagine, la variabile di caricamento dev'essere nota a tutte
-        };
-
-        if(plist.data('type') == 'project')
-        {
-            if(plist.data('location') == 'home')
-            {
-                N.html.search.globalProjectPosts(num, qs, manageResponse);
-            }
-            else
-            {
-                if(plist.data('location') == 'project')
-                {
-                    N.html.search.specificProjectPosts(num, qs, plist.data('projectid'),manageResponse);
-                }
-            }
-        }
-        else
-        {
-            if(plist.data('location') == 'home')
-            {
-                N.html.search.globalProfilePosts(num, qs, manageResponse);
-            }
-            else
-            {
-                if(plist.data('location') == 'profile')
-                {
-                    N.html.search.specificProfilePosts(num, qs, plist.data('profileid'),manageResponse);
-                }
-            }
-        }
-        plist.data('mode','search');
-    });
-
     $("#logout").on('click',function(event) {
         event.preventDefault();
         var t = $("#logout");
@@ -310,7 +279,7 @@ $(document).ready(function() {
 				setTimeout(function() { f.html(pm_default_f) },1500)
 				if( !$("#to").val() ) { f.text("Missing Adressee"); return }
 				if( !$("#message").val() ) { f.text("Missing Message"); return }
-				N.json.pm.send({ to: $("#to").val(), message: $("#message").val() },function(d) {
+				N.json.pm.send({ to: $("#to").val(), message: $("#message").val().autoLink() },function(d) {
 					f = $("#pm_list_f");
 					f.text(d.status);
 					if(d.status == 'ok') {
@@ -409,7 +378,7 @@ $(document).ready(function() {
             hcid = last ? last.data('hcid') : 0;
         }
         error.html (loading);
-        N.json[plist.data('type')].addComment ({ hpid: hpid, message: $(this).find('textarea').eq(0).val() }, function(d) {
+        N.json[plist.data('type')].addComment ({ hpid: hpid, message: $(this).find('textarea').eq(0).val().autoLink() }, function(d) {
             if(d.status == 'ok')
             {
                 if(hcid && last)
