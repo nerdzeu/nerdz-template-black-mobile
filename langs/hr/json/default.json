@@ -221,5 +221,6 @@
     "USER_MENU": "korisni\u010dki izbornik",
     "DESKTOPAVAILABLE":"Idi na desktop web stranice?",
     "GOTODESKTOP": "Idi na desktop web stranice",
-    "STAYONMOBILE": "Ostani na mobilne web stranice"
+    "STAYONMOBILE": "Ostani na mobilne web stranice",
+    "CANCEL": "Annulla"
 }

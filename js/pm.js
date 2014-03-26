@@ -61,7 +61,7 @@ $(document).ready(function() {
     $("#form").click(function() {
         c.html(loadtxt);
         N.html.pm.getForm(function(data) {
-            c.html(data);
+            c.html(data).trigger("create");
         });
     });
     $("#inbox").click(function() {
@@ -104,7 +104,7 @@ $(document).ready(function() {
         c_from =  $(this).data('from');
         c_to = $(this).data('to');
         N.html.pm.getConversation({ from: c_from, to: c_to, start: 0, num: 10 },function(data) {
-            conv.html(data);
+            conv.html(data).trigger("create");
             window.location.hash = 'message';
             $("#message").focus();
         });

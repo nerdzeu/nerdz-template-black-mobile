@@ -221,5 +221,6 @@
     "USER_MENU": "meniul de utilizator",
     "DESKTOPAVAILABLE":"Du-te pe site-ul desktop?",
     "GOTODESKTOP": "Du-te pe site-ul desktop",
-    "STAYONMOBILE": "Rămâi pe site-ul mobil"
+    "STAYONMOBILE": "Rămâi pe site-ul mobil",
+    "CANCEL": "Annulla"
 }

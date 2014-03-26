@@ -221,5 +221,6 @@
     "USER_MENU": "menu do usu\u00e1rio",
     "DESKTOPAVAILABLE":"Vá no site desktop?",
     "GOTODESKTOP": "Vá no site desktop",
-    "STAYONMOBILE": "Fique no site móvel"
+    "STAYONMOBILE": "Fique no site móvel",
+    "CANCEL": "Annulla"
 }

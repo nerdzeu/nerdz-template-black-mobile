@@ -1,14 +1,16 @@
-<header id="site_title">
-{if="$logged_b"}
-	<a id="title_left" class="rIcon"></a>
-    </script>
-    <div id="title_icons">
-      <a class="rIcon" style="background-image: url(tpl/1/base/images/warn.png)" id="notifycounter"></a>
-      <a id="gotohome" style="background-image: url(tpl/1/base/images/home.png)" class="rIcon" href="/home.php"> &nbsp;</a>
-      <a class="rIcon" style="background-image: url(tpl/1/base/images/mail.png)" href="/pm.php" id="pmcounter"></a>
-    </div>
-  <a id="title_right" class="rIcon"></a>
-{else}
-<div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/">NERDZ <small>mobile</small></a></div>
-{/if}
-</header>
+<div data-role="page" data-id="main" id="main">
+  <div data-role="header" data-id="header" data-position="fixed">
+  {if="$logged_b"}
+      <a id="title_left"></a>
+        </script>
+        <div id="title_icons">
+          <a class="rIcon" id="notifycounter"></a>
+          <a class="rIcon" id="gotohome" href="/home.php"></a>
+          <a class="rIcon" id="pmcounter"></a>
+        </div>
+      <a id="title_right"></a>
+  {else}
+    <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/">NERDZ <small>mobile</small></a></div>
+  {/if}
+  </div>
+  <div data-role="content">
