@@ -1,21 +1,23 @@
-if (!String.prototype.autoLink) {
-    String.prototype.autoLink = function () {
-        if (localStorage.getItem("no-autolink") !== undefined) return this;
-        str = this;
-        var pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse)\])/gi;
-        urls = this.match(pattern);
-        for (i in urls) {
-            if (urls[i].match(/\.(png|gif|jpg|jpeg)$/))
-                str = str.replace(urls[i], "[img]" + (urls[i].match(/(^|\s+)https?:\/\//) ? "" : "http://") + urls[i] + "[/img]");
-            if (urls[i].match(/youtube\.com|https?:\/\/youtu\.be/))
-                str = str.replace(urls[i], "[yt]" + $.trim(urls[i]) + "[/yt]");
-        }
-        return str.replace(pattern, "$1[url]$2[/url]").replace(/\[(\/)?noparse\]/gi, "");
-    };
+if(!String.prototype.autoLink) {
+    String.prototype.autoLink = function() {
+    str=this;
+    var pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse)\])/gi;
+    urls = this.match(pattern); 
+    for (i in urls)
+    {
+      if(urls[i].match(/\.(png|gif|jpg|jpeg)$/))
+        str = str.replace(urls[i],"[img]"+(urls[i].match(/(^|\s+)https?:\/\//)?"":"http://")+urls[i]+"[/img]");
+      if(urls[i].match(/youtube\.com|https?:\/\/youtu\.be/) && !urls[i].match(/playlist/))
+        str = str.replace(urls[i],"[yt]"+$.trim(urls[i])+"[/yt]");
+    }
+    return str.replace(pattern, "$1[url]$2[/url]").replace(/\[(\/)?noparse\]/gi,"");
+  };
 }
 
 $(document).bind("mobileinit", function () {
     $.mobile.ajaxEnabled = false;
+    $.event.special.tap.tapholdThreshold = 1750;
+    $.event.special.tap.emitTapOnTaphold = false;
 });
 
 $(document).ready(function () {
@@ -752,6 +754,7 @@ $(document).ready(function () {
       }, 5000);
     });
 
+    
     plist.on('click', ".vote", function () {
         var curr = $(this),
             cont = curr.parent(),
