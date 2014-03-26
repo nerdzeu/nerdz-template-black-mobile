@@ -5,19 +5,14 @@
           </div>
           <div id="leftmenu" class="box_menu">
               <ul style="color: #AFAFAF">
-                  <li style="padding:0px;">
-                    <form id="footersearch" style="position:relative">
-                        <input type="text" name="q" placeholder="{$search}" style="height:40px!important; width:100% !important; position:absolute; top:0px; left:0px; border:none; padding:0px; border-radius:0px "/>
-                        <input type="submit" value="" id="search_btn">
-                      </form>
+                  <li>
+                    <form id="footersearch">
+                      <input data-type="search" type="text" name="q" placeholder="{$search}" data-mini="true"/>
+                    </form>
                     </li>
                     <li><a id="profilePostList" href="#">NERDZ</a>
-                        <img style="margin-right:1px; margin-left: 10px; cursor:pointer; float:right;height:30px" id="nerdzselect" src="images/expand.png" title="[{$from}...]">
-                        <span style="float:right">
-                            <a href="/feed.php">
-                                <img src="images/rss.gif" style="width:16px;height:17px" alt="Users RSS" />
-                            </a>
-                        </span>
+                        <span id="nerdzselect" class="icon_expand" title="[{$from}...]"></span>
+                        <a href="/feed.php" class="icon_rss"></a>
                         <div id="nerdzlist" style="display:none;">
                             <ul>
                                 <li class="selectlang" data-lang="*">{$everybody}</li>
@@ -29,12 +24,8 @@
                       </div>
                   </li>
                   <li><a id="projectPostList" href="#">{$projects}</a>
-                      <img style="margin-right:1px; margin-left: 10px; cursor:pointer; float:right;height:30px" id="projselect" src="images/expand.png" title="[{$from}...]">
-                      <span style="float:right">
-                          <a href="/feed.php?project=1">
-                              <img src="images/rss.gif" style="width:16px;height:17px" alt="Project RSS" />
-                          </a>
-                      </span>
+                      <span id="projselect" class="icon_expand" title="[{$from}...]"></span>
+                      <a href="/feed.php?project=1" class="icon_rss"></a>
                       <div id="projlist" style="display:none; ">
                           <ul>
                               <li class="projlang" data-lang="*">{$everybody}</li>
@@ -53,7 +44,7 @@
                   <li><a href="/rank.php?top=thismonth">Monthly 100</a></li>
                   <li><a href="/last.php">{$last_user}</a></li>
                   <li><a href="/stats.php">{$stats}</a></li>
-                  <li><a href="/faq.php">F.A.Q.</a><a href="/informations.php" style="float:right"><img src="../base/images/info.png"></a></li>
+                  <li><a href="/faq.php">F.A.Q.</a><a href="/informations.php" class="icon_info"></a></li>
               </ul><br />
           </div>
       </div>
@@ -66,14 +57,12 @@
       <br /><br />
   </aside>
   <article id="center_col">
-     <div id="reloadmessage"></div>
       <div id="fast_nerdz">
           <div>
               <form id="stdfrm">
                   <textarea id="frmtxt" name="message"></textarea>
-                  <input type="submit" value="{$nerdz_it}" style="float: right; margin-top:5px" />
-                  <button type="button" style="float:left; margin-top:5px" onclick="window.open('/bbcode.php')">BBCode</button>
-                  <div id="pmessage" class="error"></div>
+                  <span style="float:right"><input type="submit" value="{$nerdz_it}" /></span>
+                  <span id="pmessage" class="error"></span>
               </form>
           </div>
           <br />
@@ -90,13 +79,13 @@
           {$user_menu}
       </div>
       <div class="box_menu">
-          <ul>
-              <a href="/"><li><img src="images/home-dark.png">Home</li></a>
-              <a href="/pm.php"><li><img src="images/pm-dark.png">{$pm}</li></a>
-              <a href="/{$myusername4link_n}"><li><img src="images/prof.png">{$profile}</li></a>
-              <a href="/preferences.php"><li><img src="images/settings.png">{$preferences}</li></a>
-              <a href="/" id="logout" data-tok="{$tok_n}"><li><img src="images/exit.png">{$logout}</li></a>
-          </ul>
+        <ul>
+            <a href="/"><li class="menu-home">Home</li></a>
+            <a href="/pm.php"><li class="menu-mess">{$pm}</li></a>
+            <a href="/{$myusername4link_n}"><li class="menu-prof">{$profile}</li></a>
+            <a href="/preferences.php"><li class="menu-pref">{$preferences}</li></a>
+            <a href="/" id="logout" data-tok="{$tok_n}"><li class="menu-exit">{$logout}</li></a>
+        </ul>
       </div>
   {if="!empty($followed_a)"}
     <div class="title" id="rightmenu_title">
@@ -109,7 +98,7 @@
             <li>
                 <a href="/{$value.username4link_n}" {if="!$value.online_b"} style="color: #AFAFAF"{/if}>{$value.username_n}</a>
                 {if="$value.birthday_b"}
-                    <img src="images/gift.gif" alt="gift" style="float: right; margin-right: 5px; border: 0px" width="12" height="12" />
+                    <img src="data:image/gif;base64,R0lGODlhDAAMAMZ9AL4ABMIBAMwAAMoACNEAANgAA9MBDK8NAJwTA80HFMwHGMsIGNwIBbYUEcASEewGCLsSJZcfD98KDNgOAJAiE7MYFPYFC7MYJs0RIqkbKasbJOIMGLAcEuQOBs8UC8MXF74YHLUcFLQcG64dKrIdIc0WGsAaJN0VBsEdHLofHdAZG+gUCdMZHskcHqUoIrAnFeQZC58qM48wKtcbKfEXFaksKvYXGJozJL4qJusdKqI0JdclIeMgMZ41L6Q0PbQyJPEgJscsMKk1OdcrKbk2LPMlL6Y+PcI3MJpCQLk/P8ZCM7ZLO7xWTbJcWv+5s/+8wP/Bw//ByP/EvP/Fw//Itv/HxP/Hyf/IxP/KvP/Jx//I0f/PxP/Oz//Ryv/Q3P/Tz//T0//U4f/W3//a1P/b1//dz//c3P/d0//d1P/d4//f3f/h2P/g4//i5f/k1v/k2f/k2//l1P/l1//l2f/o2P/p4f/q4P/s2f/s6P/x6v/15P/77P/86P///////////yH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5BAEKAH8ALAAAAAAMAAwAAAeIgH9/PhleGkaCiYJCWiZRSYqCZGAtLCVcWYpMRA0OKh84Lj0yTUgUW18pImNyd3RnbDFKWE5DKFdrc3VqYhcBJysENgJFCQsKOQYTMB00BUAAMxg8AxshXVYgJGZwdnhtYRAVVU9BNWh6fHt5aSMSUFM7HGVxVG5vUkcWDwweBy8RltzQ8QNBIAA7" alt="gift" style="float: right; margin-right: 5px; border: 0px" width="12" height="12" />
                 {/if}
             </li>
         {/loop}

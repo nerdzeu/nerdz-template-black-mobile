@@ -1,27 +1,13 @@
-<article id="center_col" style="text-align:center">
+<div id="center_col" style="text-align:center">
   {if="$mobile_b"}
     {$desktopavailable}
     
-    <a href="?{$yes_link_n}"><h2>{$gotodesktop}</h2></a>
-    <a href="?{$nop_link_n}">{$stayonmobile}</a>
+    <a href="{$gotodesktop_n}" data-ajax="false"><h2>{$gotodesktop}</h2></a>
+    <a href="{$gotomobile_n}" data-ajax="false">{$stayonmobile}</a>
   {else}
     {$mobileavailable}
     
-    <a href="?{$yes_link_n}"><h2>{$gotomobile}</h2></a>
-    <a href="?{$nop_link_n}">{$stayondesktop}</a>
+    <a href="{$gotomobile_n}" data-ajax="false"><h2>{$gotomobile}</h2></a>
+    <a href="{$gotodesktop_n}" data-ajax="false">{$stayondesktop}</a>
   {/if}
-</article>
-<aside id="right_col">
-    <div class="title">
-        {$user_menu}
-    </div>
-    <div class="box_menu">
-        <ul>
-            <a href="/"><li><img src="images/home-dark.png">Home</li></a>
-            <a href="/pm.php"><li><img src="images/pm-dark.png">{$pm}</li></a>
-            <a href="/{$myusername4link_n}"><li><img src="images/prof.png">{$profile}</li></a>
-            <a href="/preferences.php"><li><img src="images/settings.png">{$preferences}</li></a>
-            <a href="/" id="logout" data-tok="{$tok_n}"><li><img src="images/exit.png">{$logout}</li></a>
-        </ul>
-    </div>
-</aside>
+</div>
