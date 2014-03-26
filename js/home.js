@@ -270,33 +270,7 @@ $(document).ready(function () {
             load = true;
         });
     }
-
-    /* Autoload vecchi post allo scrolldown */
-    //questo serve per search, che avendo l'azione iniziale nel file default.js, non condivide la variabile load. Uso sessionStorage per ovviare
-    var sl = 'searchLoad'; /*search label */
-    sessionStorage.setItem(sl, "0");
-    var tmpDivId = "scrtxt";
-    var manageScrollResponse = function (data) {
-        $("#" + tmpDivId).remove();
-        if (data.length > 0) {
-            plist.append(data);
-            hideHidden();
-            load = true;
-            sessionStorage.setItem(sl, "0"); // se sono entrato qui, sicuramente non cerco
-        }
-    };
-
-    var manageScrollSearchResponse = function (data) {
-        $("#" + tmpDivId).remove();
-        if (data.length > 0) {
-            plist.append(data);
-            hideHidden();
-            sessionStorage.setItem(sl, "1");
-            load = false; // se sono entrato qui, sicuramente stavo cercando
-        }
-    };
-
-    $(window).scroll(function () {
+        window.addEventListener("scroll",function () {
         if ($(this).scrollTop() + 200 >= ($(document).height() - $(this).height())) {
             var num = 10; //TODO: numero di posts, parametro?
             var hpid = plist.find("div[id^='post']").last().data('hpid');
@@ -329,4 +303,29 @@ $(document).ready(function () {
             }
         }
     });
+
+    /* Autoload vecchi post allo scrolldown */
+    //questo serve per search, che avendo l'azione iniziale nel file default.js, non condivide la variabile load. Uso sessionStorage per ovviare
+    var sl = 'searchLoad'; /*search label */
+    sessionStorage.setItem(sl, "0");
+    var tmpDivId = "scrtxt";
+    var manageScrollResponse = function (data) {
+        $("#" + tmpDivId).remove();
+        if (data.length > 0) {
+            plist.append(data);
+            hideHidden();
+            load = true;
+            sessionStorage.setItem(sl, "0"); // se sono entrato qui, sicuramente non cerco
+        }
+    };
+
+    var manageScrollSearchResponse = function (data) {
+        $("#" + tmpDivId).remove();
+        if (data.length > 0) {
+            plist.append(data);
+            hideHidden();
+            sessionStorage.setItem(sl, "1");
+            load = false; // se sono entrato qui, sicuramente stavo cercando
+        }
+    };
 });

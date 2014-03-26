@@ -7,8 +7,6 @@
 
 body
 {
-    background-color: #1D1B1B;
-    color: #FFF;
     font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
     width: 100%;
     height: 100%;
@@ -71,6 +69,7 @@ body
 	background-color: #EEE;
 	font-weight: bold;
 	text-align: center;
+  color: #000!important;
 }
 
 #gotohome 
@@ -108,7 +107,7 @@ aside{
   overflow-x: hidden !important;
   background-color: #1D1B1B;
   top: 45px; 
-  z-index: 10;
+  z-index: 2;
 }
 
 #left_col
@@ -124,7 +123,6 @@ aside{
     min-height: 500px;
     padding: 0px;
     z-index: 1;
-    background-color: #1D1B1B;
 }
 
 #right_col
@@ -159,13 +157,29 @@ aside{
 
 #notify_list, #pm_list
 {
-    z-index:15;
-    position: fixed;
-    display: block;
-    top: 45px;
-    width: 100%;
-    background-color: #BDBDBD;
-    border-bottom: 1px solid white;
+  z-index: 3;
+  position: fixed;
+  display: block;
+  top: 45px;
+  width: 100%;
+  background-color: #000;
+  color: #EEE;
+  border-bottom: 1px solid white;
+}
+
+#pm_list
+{
+    height: 550px;
+    overflow: auto;
+}
+
+#pm_list .ui-btn, #pm_list .ui-input-text {
+  background-color: #FFF;
+  color: #000;
+}
+
+#pm_list input {
+  max-width: 99%;
 }
 
 #gotopm
@@ -264,11 +278,13 @@ label, .qu_user, .selectlang, .projlang, .more
 
 .commentlist
 {
+  padding-left: 1%;
   width:99%;
   margin-top:.5em; 
   margin-bottom:15px;
 }
-input[type=text], input[type=password], input[type=submit], option, select, button, .title
+
+.title
 {
     border: 0.5px #000 solid;
     min-height:30px;
@@ -280,7 +296,7 @@ input[type=text], input[type=password], input[type=submit], option, select, butt
     cursor: pointer;
 }
 
-.title, button, input[type=submit] 
+.title
 {
     text-align: center;
     line-height: 30px;
@@ -543,12 +559,6 @@ ul.nav li
 	display:none;
 }
 
-#pm_list
-{
-    height: 550px;
-    overflow: auto;
-}
-
 .ninja {
   display:none;
   transition: 1s;
@@ -561,14 +571,6 @@ ul.nav li
 	height: 30px;
 }
 
-#pm_list_t img
-{
-	height:30px;
-	margin-right:10px;
-	float:right;
-	cursor:pointer;
-}
-
 #pm_from
 {
 	float:left;
@@ -578,6 +580,7 @@ ul.nav li
 
 #pm_conv, #pm_reply, #pm_new 
 {
+  cursor: pointer;
   float: right;
   display: block;
   width: 32px;
@@ -658,8 +661,7 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYA
 
 .qu_main
 {
-    margin-left: 2%;
-    width: 97%;
+    width: 98%;
     border: solid #AFAFAF 1px;
     overflow: hidden;
     max-height: 16px;

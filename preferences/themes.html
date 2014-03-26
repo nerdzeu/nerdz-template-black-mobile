@@ -9,15 +9,3 @@
     <input type="submit" value="{$edit}" />&nbsp;
     <input type="hidden" name="tok" value="{$tok_n}" />
 </form>
-<hr style="margin-top: 20px; margin-bottom:20px" />
-<h4>Nerdz Mobile</h4>
-<input type="checkbox" id="swipe"><label for="swipe">Swipe</label>
-<script type="application/javascript">
-    $("#swipe").on("change", function() {
-      ($(this).is(":checked")) ? 
-        localStorage.setItem("swipe", "1") : 
-        localStorage.removeItem("swipe");
-    })
-</script>
-
-<br /><br />

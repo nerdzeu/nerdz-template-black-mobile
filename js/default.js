@@ -1,21 +1,23 @@
-if (!String.prototype.autoLink) {
-    String.prototype.autoLink = function () {
-        if (localStorage.getItem("no-autolink") !== undefined) return this;
-        str = this;
-        var pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse)\])/gi;
-        urls = this.match(pattern);
-        for (i in urls) {
-            if (urls[i].match(/\.(png|gif|jpg|jpeg)$/))
-                str = str.replace(urls[i], "[img]" + (urls[i].match(/(^|\s+)https?:\/\//) ? "" : "http://") + urls[i] + "[/img]");
-            if (urls[i].match(/youtube\.com|https?:\/\/youtu\.be/))
-                str = str.replace(urls[i], "[yt]" + $.trim(urls[i]) + "[/yt]");
-        }
-        return str.replace(pattern, "$1[url]$2[/url]").replace(/\[(\/)?noparse\]/gi, "");
-    };
+if(!String.prototype.autoLink) {
+    String.prototype.autoLink = function() {
+    str=this;
+    var pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse)\])/gi;
+    urls = this.match(pattern); 
+    for (i in urls)
+    {
+      if(urls[i].match(/\.(png|gif|jpg|jpeg)$/))
+        str = str.replace(urls[i],"[img]"+(urls[i].match(/(^|\s+)https?:\/\//)?"":"http://")+urls[i]+"[/img]");
+      if(urls[i].match(/youtube\.com|https?:\/\/youtu\.be/) && !urls[i].match(/playlist/))
+        str = str.replace(urls[i],"[yt]"+$.trim(urls[i])+"[/yt]");
+    }
+    return str.replace(pattern, "$1[url]$2[/url]").replace(/\[(\/)?noparse\]/gi,"");
+  };
 }
 
 $(document).bind("mobileinit", function () {
     $.mobile.ajaxEnabled = false;
+    $.event.special.tap.tapholdThreshold = 1750;
+    $.event.special.tap.emitTapOnTaphold = false;
 });
 
 $(document).ready(function () {
@@ -77,8 +79,8 @@ $(document).ready(function () {
         return false;
     });
 
-    $("iframe").attr('scrolling', 'no'); //dato che il validatore non li vuole e con i css overflow:hidden non funge
-    $("body").append($('<br />')).on("mousedown", "a", function (e) {
+    $("iframe").attr('scrolling', 'no'); 
+    $("body").on("mousedown", "a", function (e) {
         if ($(this).attr("href") && $(this).attr("href").match(/^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/)) {
             e.preventDefault();
             $(this).attr("onclick", "").attr("href", $(this).attr("href").replace(/^(https?:\/\/)www(\.nerdz\.eu\/.*)/, "$1mobile$2"));
@@ -88,46 +90,11 @@ $(document).ready(function () {
         $("#rightmenu").toggleClass("ninja");
     });
 
-    $(document).on("taphold", "input[type=submit]", function () {
+    $(document).on("taphold", "input[type=submit]", function (e) {
+        e.preventDefault();
         window.open("/bbcode.php")
     })
-    
-    if(localStorage.getItem("swipe")!==undefined)
-      $("#main").on("swipeleft",function(e) {
-        e.preventDefault();
-        if($("#right_col").hasClass("shown")) return;
-        $("#left_col").hasClass("shown") ?
-          $("#title_left").click() :
-          $("#title_right").click();
-      }).on("swiperight",function(e) {
-        e.preventDefault();
-        if($("#left_col").hasClass("shown")) return;
-        $("#right_col").hasClass("shown") ?
-          $("#title_right").click() :
-          $("#title_left").click();
-      });
-
-    $(function () {
-        var scroll_timer;
-        var displayed = false;
-        var $m = $('#footer_main');
-        var $w = $(window);
-        $w.scroll(function () {
-            window.clearTimeout(scroll_timer);
-            scroll_timer = window.setTimeout(function () {
-                $w.scrollLeft("0px");
-                if ($w.scrollTop() <= 42) {
-                    displayed = false;
-                    $m.fadeOut(500);
-                } else if (displayed == false) {
-                    displayed = true;
-                    $m.stop(true, true).fadeIn().click(function () {
-                        $m.fadeOut(500);
-                    });
-                }
-            }, 100);
-        });
-    });
+      
     // load the prettyprinter
     var append_theme = "",
         _h = $("head");
@@ -242,7 +209,7 @@ $(document).ready(function () {
             t.on("click", "#pm_new", function () {
                 b.html(loading);
                 N.html.pm.getForm(function (data) {
-                    b.html(data);
+                    b.html(data).trigger("create");
                     $("#to").focus();
                 });
                 c_from = false;
@@ -261,7 +228,7 @@ $(document).ready(function () {
             t.on("click", "#pm_reply", function (data) {
                 b.html(loading);
                 N.html.pm.getForm(function (data) {
-                    b.html(data);
+                    b.html(data).children().trigger("create");
                     to = $("#pm_reply").data("to");
                     $("#to").val(to).attr("disabled", "disabled")
                     $("#message").focus();
@@ -494,7 +461,7 @@ $(document).ready(function () {
                 if (document.location.hash == '#last')
                     refto.find('.frmcomment textarea[name=message]').focus();
                 else if (document.location.hash)
-                    $(document).scrollTop($(document.location.hash).offset().top);
+                    $.mobile.silentScroll($(document.location.hash).offset().top);
             });
         } else {
             refto.html('');
@@ -618,9 +585,9 @@ $(document).ready(function () {
         var editlang = $(this).attr("title");
         var form = function (fid, hpid, message, edlang, prev) {
             return '<form style="clear: both;" id="' + fid + '" data-hpid="' + hpid + '">' +
-                '<textarea id="' + fid + 'abc" autofocus style="width:99%; height:125px">' + message + '</textarea>' +
-                '<span style="float:right"><input type="submit" value="' + edlang + '" /></span>' +
-                '<span style="float:left"><input type="button" value="' + N.getLangData().CANCEL + '" /></span>' +
+                '<textarea id="' + fid + 'abc" autofocus style="width:100%; height:125px">' + message + '</textarea>' +
+                '<span style="float:right; margin-top: -10px"><input type="submit" data-mini="true" value="' + edlang + '" /></span>' +
+                '<span style="float:left; margin-top: -10px"><input type="button" data-mini="true" value="' + N.getLangData().CANCEL + '" /></span>' +
                 '</form><br style="clear: both"/>';
         };
         N.json[plist.data('type')].getPost({
@@ -776,7 +743,6 @@ $(document).ready(function () {
     });
 
     plist.on("taphold", ".nerdz_message", function (e) {
-      e.preventDefault();
       $(".opted").removeClass("opted").children("div").eq(0).show().next().hide();
       var mess = $(this).children("div").eq(0),
           more = mess.next();
@@ -788,6 +754,7 @@ $(document).ready(function () {
       }, 5000);
     });
 
+    
     plist.on('click', ".vote", function () {
         var curr = $(this),
             cont = curr.parent(),
