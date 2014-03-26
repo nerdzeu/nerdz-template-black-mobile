@@ -85,9 +85,7 @@
             <div>
                 <form id="stdfrm" data-to="{$id_n}">
                     <textarea id="frmtxt" name="message" ></textarea>
-                    <span style="float:right">
-                      <input type="submit" value="{$nerdz_it}" />
-                    </span>
+                    <span style="float:right; margin-top: -10px;"><input type="submit" data-mini="true" value="{$nerdz_it}"/></span>
                     {if="$canwritenews_b"}
                         <span style="float:left;"><input type="checkbox" name="news" value="1" id="sendnews" />&nbsp;<label for="sendnews">News</label></span>
                     {/if}

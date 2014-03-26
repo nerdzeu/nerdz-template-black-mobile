@@ -61,14 +61,14 @@
           <div>
               <form id="stdfrm">
                   <textarea id="frmtxt" name="message"></textarea>
-                  <span style="float:right"><input type="submit" value="{$nerdz_it}" /></span>
+                  <span style="float:right; margin-top: -10px;"><input type="submit" data-mini="true" value="{$nerdz_it}"/></span>
                   <span id="pmessage" class="error"></span>
               </form>
           </div>
           <br />
       </div>
       <div id="postlist" data-type="profile" data-location="home" data-mode="std"></div>
-      <br /><br /><br />
+      <br /><br />
       {ignore} Data type == profile di default, ma cambia poi quando si aggiorna #postlist con i projetti
                location sta a indicare dove ci troviamo (che lo utilizzo e modifico nel footersearch)
               mode è li per indicare al gestore dello scrolldown se deve caricare normalemente (std) oppure scrollare la pagina di ricerca (search)
@@ -98,7 +98,7 @@
             <li>
                 <a href="/{$value.username4link_n}" {if="!$value.online_b"} style="color: #AFAFAF"{/if}>{$value.username_n}</a>
                 {if="$value.birthday_b"}
-                    <img src="data:image/gif;base64,R0lGODlhDAAMAMZ9AL4ABMIBAMwAAMoACNEAANgAA9MBDK8NAJwTA80HFMwHGMsIGNwIBbYUEcASEewGCLsSJZcfD98KDNgOAJAiE7MYFPYFC7MYJs0RIqkbKasbJOIMGLAcEuQOBs8UC8MXF74YHLUcFLQcG64dKrIdIc0WGsAaJN0VBsEdHLofHdAZG+gUCdMZHskcHqUoIrAnFeQZC58qM48wKtcbKfEXFaksKvYXGJozJL4qJusdKqI0JdclIeMgMZ41L6Q0PbQyJPEgJscsMKk1OdcrKbk2LPMlL6Y+PcI3MJpCQLk/P8ZCM7ZLO7xWTbJcWv+5s/+8wP/Bw//ByP/EvP/Fw//Itv/HxP/Hyf/IxP/KvP/Jx//I0f/PxP/Oz//Ryv/Q3P/Tz//T0//U4f/W3//a1P/b1//dz//c3P/d0//d1P/d4//f3f/h2P/g4//i5f/k1v/k2f/k2//l1P/l1//l2f/o2P/p4f/q4P/s2f/s6P/x6v/15P/77P/86P///////////yH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5BAEKAH8ALAAAAAAMAAwAAAeIgH9/PhleGkaCiYJCWiZRSYqCZGAtLCVcWYpMRA0OKh84Lj0yTUgUW18pImNyd3RnbDFKWE5DKFdrc3VqYhcBJysENgJFCQsKOQYTMB00BUAAMxg8AxshXVYgJGZwdnhtYRAVVU9BNWh6fHt5aSMSUFM7HGVxVG5vUkcWDwweBy8RltzQ8QNBIAA7" alt="gift" style="float: right; margin-right: 5px; border: 0px" width="12" height="12" />
+                    <img src="data:image/gif;base64,R0lGODlhDAAMAMZ9AL4ABMIBAMwAAMoACNEAANgAA9MBDK8NAJwTA80HFMwHGMsIGNwIBbYUEcASEewGCLsSJZcfD98KDNgOAJAiE7MYFPYFC7MYJs0RIqkbKasbJOIMGLAcEuQOBs8UC8MXF74YHLUcFLQcG64dKrIdIc0WGsAaJN0VBsEdHLofHdAZG+gUCdMZHskcHqUoIrAnFeQZC58qM48wKtcbKfEXFaksKvYXGJozJL4qJusdKqI0JdclIeMgMZ41L6Q0PbQyJPEgJscsMKk1OdcrKbk2LPMlL6Y+PcI3MJpCQLk/P8ZCM7ZLO7xWTbJcWv+5s/+8wP/Bw//ByP/EvP/Fw//Itv/HxP/Hyf/IxP/KvP/Jx//I0f/PxP/Oz//Ryv/Q3P/Tz//T0//U4f/W3//a1P/b1//dz//c3P/d0//d1P/d4//f3f/h2P/g4//i5f/k1v/k2f/k2//l1P/l1//l2f/o2P/p4f/q4P/s2f/s6P/x6v/15P/77P/86P///////////yH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5BAEKAH8ALAAAAAAMAAwAAAeIgH9/PhleGkaCiYJCWiZRSYqCZGAtLCVcWYpMRA0OKh84Lj0yTUgUW18pImNyd3RnbDFKWE5DKFdrc3VqYhcBJysENgJFCQsKOQYTMB00BUAAMxg8AxshXVYgJGZwdnhtYRAVVU9BNWh6fHt5aSMSUFM7HGVxVG5vUkcWDwweBy8RltzQ8QNBIAA7#" alt="gift" style="float: right; margin: 10px; border: 0px; height: 15px; width: 15px" />
                 {/if}
             </li>
         {/loop}

@@ -6,13 +6,13 @@
         <tr>
             <td>{$project_name}:</td>
             <td>
-                <input type="text" name="name"/>
+                <input type="text" name="name" data-mini="true"/>
             </td>
         </tr>
         <tr>
             <td>{$description}:</td>
             <td>
-                <textarea name="description" style="width:370px; height: 240px"></textarea>
+                <textarea name="description" style="height: 240px" data-mini="true" data-autogrow="false"></textarea>
             </td>
         </tr>
         <tr>
@@ -20,16 +20,30 @@
                 <img alt="" id="captcha" title="captcha" style="border: 1px solid #FFF" width="90" height="30" />
                 &nbsp;<span onclick="N.reloadCaptcha()" style="font-size:6pt; cursor: pointer">{$reload_captcha}</span>
             </td>
-            <td><input type="text" name="captcha" /></td>
+            <td><input type="text" name="captcha"  data-mini="true"/></td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="{$create}" /></td>
+            <td><input type="submit" value="{$create}" data-mini="true"/></td>
         </tr>
         </table>
     </form>
 <div class="error" id="err" style="margin-top:80px"></div>
 </div>
+<aside id="right_col">
+  <div class="title">
+      {$user_menu}
+  </div>
+  <div class="box_menu">
+        <ul>
+            <a href="/"><li class="menu-home">Home</li></a>
+            <a href="/pm.php"><li class="menu-mess">{$pm}</li></a>
+            <a href="/{$myusername4link_n}"><li class="menu-prof">{$profile}</li></a>
+            <a href="/preferences.php"><li class="menu-pref">{$preferences}</li></a>
+            <a href="/" id="logout" data-tok="{$tok_n}"><li class="menu-exit">{$logout}</li></a>
+        </ul>
+  </div>
+</aside>
 <script type="application/javascript">
 $(document).ready(function() {
     $("#create").on('submit',function(e) {
