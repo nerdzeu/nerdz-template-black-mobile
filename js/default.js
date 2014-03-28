@@ -15,9 +15,9 @@ if(!String.prototype.autoLink) {
 }
 
 $(document).bind("mobileinit", function () {
-    $.mobile.ajaxEnabled = false;
-    $.event.special.tap.tapholdThreshold = 1750;
-    $.event.special.tap.emitTapOnTaphold = false;
+  $.mobile.ajaxEnabled = false;
+  $.event.special.tap.tapholdThreshold = 1750;
+  $.event.special.tap.emitTapOnTaphold = false;
 });
 
 $(document).ready(function () {
@@ -28,7 +28,6 @@ $(document).ready(function () {
         $("aside").css("height", $(window).height() - 42);
     })
 
-    //impedisce il sovrapporsi degli slide
     var moving = 0;
 
     if ( !! !$("#left_col").length) {
@@ -94,8 +93,7 @@ $(document).ready(function () {
         e.preventDefault();
         window.open("/bbcode.php")
     })
-      
-    // load the prettyprinter
+
     var append_theme = "",
         _h = $("head");
     if (localStorage.getItem("has-dark-theme") == 'yep') {
@@ -393,8 +391,6 @@ $(document).ready(function () {
             pattern = 'div[id^="c"]',
             comments = refto.find(pattern);
         if (comments.length) {
-            // Uses the second-last element instead of the last one (if available)
-            // to fix the append bug reported by nessuno.
             last = comments.length > 1 ? comments.eq(comments.length - 2) : null;
             hcid = last ? last.data('hcid') : 0;
         }
@@ -414,7 +410,6 @@ $(document).ready(function () {
                             newComments = $('<div>' + d + '</div>').find(pattern),
                             internalLengthPointer = comments.length,
                             lastComment = comments.last();
-                        // if available, delete the secondlast comment
                         if (comments.length > 1) {
                             comments.eq(comments.length - 1).remove();
                             internalLengthPointer--;
@@ -482,7 +477,6 @@ $(document).ready(function () {
         }, function (r) {
             moreBtn.data("inprogress", "0").data("morecount", ++intCounter).text(moreBtn.data("localization"));
             var _ref = $("<div>" + r + "</div>");
-            // Lesson learned: don't use .parent() after a .hide()
             moreBtn.parent().after(r);
             if (intCounter == 1)
                 moreBtn.parent().find(".scroll_bottom_hidden").show();
@@ -495,20 +489,12 @@ $(document).ready(function () {
     });
 
     plist.on('click', '.scroll_bottom_btn', function () {
-        // thanks to stackoverflow for .eq(x) and for the scroll hack
         var cList = $(this).parents().eq(2);
-        // Select the second last comment, do a fancy scrolling and then focus the textbox.
-        $("html, body").animate({
-            scrollTop: cList.find(".singlecomment:nth-last-child(2)").offset().top
-        }, function () {
-            cList.find(".frmcomment textarea").focus();
-        });
+        $.mobile.silentScroll(cList.find(".singlecomment:nth-last-child(2)").offset().top)
+        cList.find(".frmcomment textarea").focus();
     });
 
     plist.on('click', '.all_comments_btn', function () {
-        // TODO do not waste precious performance by requesting EVERY
-        // comment, but instead adapt the limited function to allow
-        // specifying a start parameter without 'num'.
         var btn = $(this),
             btnDb = btn.parent().parent(),
             moreBtn = btnDb.find(".more_btn"),
@@ -640,7 +626,7 @@ $(document).ready(function () {
                 me.attr('class', 'imgunlocked').attr('title', d.message);
             }
         }
-        if ($(this).data('silent')) { //nei commenti
+        if ($(this).data('silent')) { 
             N.json[plist.data('type')].reNotifyFromUserInPost({
                 hpid: $(this).data('hpid'),
                 from: $(this).data('silent')
@@ -803,7 +789,6 @@ $(document).ready(function () {
         }
     });
 
-    //end plist into events
     setInterval(function () {
         var nc = $("#notifycounter"),
             val = parseInt(nc.html());
@@ -812,5 +797,4 @@ $(document).ready(function () {
         val = parseInt(pc.html());
         pc.css('background-color', val == 0 || isNaN(val) ? '#eee' : '#2C98C9');
     }, 200);
-
 });
