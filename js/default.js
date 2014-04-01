@@ -71,7 +71,9 @@ $(document).ready(function() {
             });
         return false;
     });
-    $('iframe').attr('scrolling', 'no');
+    $('iframe').attr('scrolling', 'no').height(Math.min(340,.6*$(this).width())).after(function() {
+        return $("<a>").addClass("ext-link").attr("target","_blank").attr("href",$(this).attr("src").replace("embed/","watch?v=")).text("Link");
+    }).after($("<br/>"));
     $('body').on('mousedown', 'a', function(e) {
         if ($(this).attr('href') && $(this).attr('href').match(/^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/)) {
             e.preventDefault();
