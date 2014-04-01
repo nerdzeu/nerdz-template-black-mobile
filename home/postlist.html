@@ -26,6 +26,7 @@
         </div>
     {else}
         <div class="nerdz_from">
+            <span class="more_opts"></span>
             <a href="/{$value.from4link_n}">{$value.from_n}</a>
             {if="$value.fromid_n != $value.toid_n"}
                 &nbsp;=&gt; <a href="/{$value.to4link_n}">{$value.to_n}</a>
@@ -40,10 +41,10 @@
             <span class="nerdz_date" style="font-size: 7pt">
                 #{$value.pid_n}
             </span>
-            <div>
+            <div class="post">
             {$value.message_n}
             </div>
-            <div class="more_opt" style="display: none">
+            <div class="more_opt">
               <a class="hide" data-postid="post{$value.hpid_n}" title="{$hide}"></a>
               {if="$value.canremovepost_b"}
                   <a class="delpost" data-hpid="{$value.hpid_n}" data-refto="post{$value.hpid_n}" title="{$remove}"></a>
