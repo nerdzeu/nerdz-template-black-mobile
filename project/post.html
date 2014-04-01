@@ -1,5 +1,6 @@
 <div id="post{$hpid_n}" data-hpid="{$hpid_n}" class="post" data-hide="{$hide}">
     <div class="nerdz_from">
+        <span class="more_opts"></span>
         <a href="/{$from4link_n}">{$from_n}</a>
         {if="$fromid_n != $toid_n"}
             &nbsp;=&gt; <a href="/{$to4link_n}">{$to_n}</a>
@@ -14,10 +15,10 @@
         <span class="nerdz_date" style="font-size: 7pt">
             #{$pid_n}
         </span>
-        <div>
+        <div class="post">
         {$message_n}
         </div>
-        <div class="more_opt" style="display: none">
+        <div class="more_opt">
           <a class="hide" data-postid="post{$hpid_n}" title="{$hide}"></a>
           {if="$canremovepost_b"}
               <a class="delpost" data-hpid="{$hpid_n}" data-refto="post{$hpid_n}" title="{$remove}"></a>
