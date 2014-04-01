@@ -2,7 +2,7 @@
 	"css": {
 		"default": [
                 "http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css",
-                "css/nerdz.min.css",
+                "css/theme.css",
                 "css/default.css"
                 ],
         "home": "css/home.css",
