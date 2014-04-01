@@ -311,12 +311,15 @@ html body .ui-group-theme-a a {
 }
 .ui-page-theme-a a: visited, html .ui-bar-a a: visited, html .ui-body-a a: visited, html body .ui-group-theme-a a: visited {
     color: #3388cc;
+    text-decoration:none;
 }
 .ui-page-theme-a a: hover, html .ui-bar-a a: hover, html .ui-body-a a: hover, html body .ui-group-theme-a a: hover {
     color: #005599;
+    text-decoration:none;
 }
 .ui-page-theme-a a: active, html .ui-bar-a a: active, html .ui-body-a a: active, html body .ui-group-theme-a a: active {
     color: #005599;
+    text-decoration:none;
 }
 .ui-page-theme-a .ui-btn,
 html .ui-bar-a .ui-btn,
