@@ -1,5 +1,6 @@
-<div style="margin-top: 1%" id="post{$hpid_n}">
+<div id="post{$hpid_n}" data-hpid="{$hpid_n}" class="post" data-hide="{$hide}">
     <div class="nerdz_from">
+        <span class="more_opts"></span>
         <a href="/{$from4link_n}">{$from_n}</a>
         {if="$fromid_n != $toid_n"}
             &nbsp;=&gt; <a href="/{$to4link_n}">{$to_n}</a>
@@ -7,51 +8,65 @@
         :
         {/if}
         <span class="nerdz_date">
-            {$datetime_n}
+            <time>{$datetime_n}</time>
         </span>
     </div>
-    <div class="{if="$news_b"}news{else}nerdz_message{/if}">
-        <div>
-            <span class="nerdz_date" style="font-size: 7pt">
-                #{$pid_n}
-            </span>
-            {$message_n}
+    <div class="nerdz_message">
+        <span class="nerdz_date" style="font-size: 7pt">
+            #{$pid_n}
+        </span>
+        <div class="post">
+        {$message_n}
         </div>
-        <div style="clear:both; padding-top: 5px" class="small">
-            <a href="/{$to4link_n}{$pid_n}">Link</a>&nbsp;&nbsp;
-            <a class="showcomments" style="width:60%" data-hpid="{$hpid_n}" data-refto="commentlist{$hpid_n}">
-                {$comments} ({$postcomments_n})
-            </a>
-            {if="$canremovepost_b"}
-                <a class="delpost" data-hpid="{$hpid_n}" data-refto="post{$hpid_n}" title="{$remove}"></a>
-            {/if}
-            {if="$caneditpost_b"}
-                <a class="editpost" data-hpid="{$hpid_n}" data-refto="post{$hpid_n}" title="{$edit}"></a>
-            {/if}
-            {if="$canshowlock_b"}
-                {if="$lock_b"}
-                <a href="#" class="imglocked" data-hpid="{$hpid_n}" title="{$recv_notify}"></a>
-                {else}
-                <a href="#" class="imgunlocked" data-hpid="{$hpid_n}" title="{$not_recv_notify}"></a>
-                {/if}
-            {/if}
-            {if="$canshowlurk_b"}
-                {if="$lurk_b"}
+        <div class="more_opt">
+          <a class="hide" data-postid="post{$hpid_n}" title="{$hide}"></a>
+          {if="$canremovepost_b"}
+              <a class="delpost" data-hpid="{$hpid_n}" data-refto="post{$hpid_n}" title="{$remove}"></a>
+          {/if}
+          {if="$caneditpost_b"}
+              <a class="editpost" data-hpid="{$hpid_n}" data-refto="post{$hpid_n}" title="{$edit}"></a></a>
+          {/if}
+          {if="$canshowlock_b"}
+              {if="$lock_b"}
+              <a href="#" class="imglocked" data-hpid="{$hpid_n}" title="{$recv_notify}"></a>
+              {else}
+              <a href="#" class="imgunlocked" data-hpid="{$hpid_n}" title="{$not_recv_notify}"></a>
+              {/if}
+          {/if}
+          {if="$canshowlurk_b"}
+              {if="$lurk_b"}
                 <a href="#" class="unlurk" data-hpid="{$hpid_n}" title="Unlurk"></a>
                 {else}
                 <a href="#" class="lurk" data-hpid="{$hpid_n}" title="Lurk"></a>
-                {/if}
-            {/if}
-            {if="$canshowbookmark_b"}
-                {if="$bookmark_b"}
+              {/if}
+          {/if}
+          {if="$canshowbookmark_b"}
+              {if="$bookmark_b"}
                 <a href="#" class="unbookmark" data-hpid="{$hpid_n}" title="Unbookmark"></a>
                 {else}
                 <a href="#" class="bookmark" data-hpid="{$hpid_n}" title="Bookmark"></a>
-                {/if}
-            {/if}
+              {/if}
+          {/if}
+        </div>
+        <div class="post_footer" data-expand="{$expand}">
+          <span style="float:left">
+            <a href="/{$to4link_n}{$pid_n}" class="post_link">Link</a>&nbsp;&nbsp;
+            <a class="showcomments" data-hpid="{$hpid_n}" data-refto="commentlist{$hpid_n}">
+                {$comments} ({$postcomments_n})
+            </a>
+          </span>
+          <span style="float: right" class="thumbs">
+            <span class='thumbs-counter{if="$thumbs_n > 0"} nerdz_thumbsNumPos{else}{if="$thumbs_n < 0"} nerdz_thumbsNumNeg{/if}{/if}'>{if="$thumbs_n > 0"}+{/if}{$thumbs_n}</span>
+            &nbsp;&nbsp;
+            <span class="nerdz_thumbs" data-refto="{$hpid_n}">
+              <span class='vote up{if="$uthumb_n == 1"} voted{/if}'>&#9650;</span>&nbsp;&nbsp;
+              <span class='vote down{if="$uthumb_n ==-1"} voted{/if}'>&#9660;</span>&nbsp;&nbsp;
+            </span>
+          </span>
         </div>
     </div>
-    <div>
-        <div id="commentlist{$hpid_n}" style="width:99%; margin-top:1%; margin-bottom:15px"></div>
-    </div>
+  <div>
+      <script type="application/javascript">var lnk{$hpid_n} = "/{$to4link_n}{$pid_n}";</script>
+      <div id="commentlist{$hpid_n}" class="commentlist"></div>
+  </div>
 </div>

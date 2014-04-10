@@ -1,53 +1,66 @@
-    <article id="center_col" style="text-align:center">
-    <form id="presentation" class="page" style="display:none">
-        <p>{$presentation_n}</p>
-        <p><a href="#" class="register">{$register}</a> o <a href="#" class="login">{$login}</a></p>
-    </form>
-      <form id="loginfrm" class="page">
+
+      <form id="loginfrm" style="text-align: center">
         <p>Benvenuto su Nerdz!<br />
-        <a href="#" class="wutsnerdz"><small>Cos'è NERDZ?</small></a></p>
+        <a href="#presentation"><small>Cos'è NERDZ?</small></a></p>
         
-        <input type="text" name="username" placeholder="{$username}" style="width:80%" required /><br />
-        <input type="password" name="password" placeholder="*******" style="width:80%" required /><br />
-        
-        <div style="text-align: left; width: 80%; margin: auto;">
-          <span style="float:left"><input type="checkbox" name="setcookie" id="remember" style="margin:0" checked="checked"> <label for="remember">&nbsp;{$remember_me}</label></span>
-          <span style="float:right"><input type="checkbox" name="offline" id="markoffline" style="margin:0"> <label for="markoffline">&nbsp;{$hide_status}</label></span>
-        </div>
-        
+        <input type="text" name="username" placeholder="{$username}" style="width:80%" required />
+        <input type="password" name="password" placeholder="*******" style="width:80%" required />        
         <input type="submit" value="{$login}" />
-        <input type="hidden" value="{$tok_n}" name="tok" /><br />
+
+        <span style="float:left">
+          <input type="checkbox" name="setcookie" id="remember" data-mini="true" checked="checked">
+          <label for="remember" data-mini="true">{$remember_me}</label>
+        </span>
+        <span style="float:right">
+          <input type="checkbox" name="offline" id="markoffline" data-mini="true">
+          <label for="markoffline">{$hide_status}</label>
+        </span>
+        <input type="hidden" value="{$tok_n}" name="tok" />
         <span id="login_msg"></span>
-        <br />
+        <br style="clear: both"/>
         
         <a href="/reset.php">{$forgot_password}</a><br />
-        <a href="#" class="register">{$register}!</a>
+        <a href="#register">{$register}!</a>
       </form>
-      
-    <form id="regfrm" class="page" style="display: none">
+    </div>
+  </div>
+
+  <div data-role="page" id="presentation">
+  <div data-role="header" data-id="header">
+    <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/" style="color: #000">NERDZ <small>mobile</small></a></div>
+  </div>
+  <p>{$presentation_n}</p>
+  <p><a href="#register">{$register}</a> o <a href="#main">{$login}</a></p>
+  </div>
+
+  <div data-role="page" id="register">
+    <div data-role="header" data-id="header">
+      <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/" style="color: #000">NERDZ <small>mobile</small></a></div>
+    </div>
+    <form id="regfrm" class="page">
       <p>{$register}</p>
         <input type="text" name="username" placeholder="{$username}" required /><br />
         <input type="text" name="name" placeholder="{$name}" required /><br />
         <input type="text" name="surname" placeholder="{$surname}" required /><br />
         <input type="text" name="email" placeholder="{$email}" required /><br />
         <input type="password" name="password" placeholder="{$password}" required /><br />
-{$gender}:<select name="gender">
+{$gender}:<select name="gender" data-mini="true">
             <option value="1">{$male}</option>
             <option value="2">{$female}</option>
           </select><br/>
-{$birth_date}:<select name="birth_day">
+{$birth_date}:<select name="birth_day" data-mini="true">
                <option value="-1">{$day}</option>
                {loop="days_a"}
                <option value="{$value}">{$value}</option>
                {/loop}
              </select>
-             <select name="birth_month">
+             <select name="birth_month" data-mini="true">
                <option value="-1">{$month}</option>
                {loop="months_a"}
                <option value="{$value}">{$value}</option>
                {/loop}
               </select>
-              <select name="birth_year">
+              <select name="birth_year" data-mini="true">
                 <option value="-1">{$year}</option>
                 {loop="years_a"}
                 <option value="{$value}">{$value}</option>
@@ -55,7 +68,7 @@
               </select><br />
               <br />
               {$timezone}:<br/>
-                <select name="timezone">
+                <select name="timezone" data-mini="true">
                   {loop="timezones_a"}
                   <option value="{$value}">{$value}</option>
                   {/loop}
@@ -73,31 +86,13 @@
                 <br/>
                 <div class="error" id="error"></div>
                 <div id="done" class="error" style="color: #00FF00"></div>
-                <a href="#" class="login">{$login}</a>
+                <a href="#main">{$login}</a><br/><br/>
     </form>
-    
-    </article>
+</div>   
 
-    
+
    <script type="application/javascript">
-    $(".register").click(function(e) {
-      e.preventDefault();
-      $("form").hide();
-      $("#regfrm").show();
-    });
-    
-    $(".wutsnerdz").click(function(e) {
-      e.preventDefault();
-      $("form").hide();
-      $("#presentation").show();
-    });
-    
-    $(".login").click(function(e) {
-      e.preventDefault();
-      $("form").hide();
-      $("#loginfrm").show();
-    });
-    
+   
     $("#regfrm").on('submit',function(event) {
         event.preventDefault();
         N.json.register($("#regfrm").serialize(),function(obj) {
@@ -139,5 +134,3 @@
                 });
             });
         </script>
-        <style>input[type=text], input[type=password] {width:80%} input[type=submit]{width: 70%; font-size: 23px; height: 40px; border-radius: 5px;}</style>
-

@@ -4,7 +4,6 @@
     "BOOKMARKS": "Oznake",
     "ID": "ID",
     "SKYPE": "Skype",
-    "JABBER": "Jabber",
     "GITHUB": "GitHub",
     "FACEBOOK": "Facebook",
     "TWITTER": "Twitter",
@@ -221,5 +220,9 @@
     "USER_MENU": "korisni\u010dki izbornik",
     "DESKTOPAVAILABLE":"Idi na desktop web stranice?",
     "GOTODESKTOP": "Idi na desktop web stranice",
-    "STAYONMOBILE": "Ostani na mobilne web stranice"
+    "STAYONMOBILE": "Ostani na mobilne web stranice",
+    "MOBILEAVAILABLE":"Idi na mobilnim stranicama?",
+    "GOTOMOBILE": "Idi na mobilnoj mjestu",
+    "STAYONDESKTOP":"Ostani na desktop mjestu",
+    "CANCEL": "Annulla"
 }

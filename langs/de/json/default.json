@@ -4,7 +4,6 @@
     "BOOKMARKS": "Bookmarks",
     "ID": "ID",
     "SKYPE": "Skype",
-    "JABBER": "Jabber",
     "GITHUB": "GitHub",
     "FACEBOOK": "Facebook",
     "TWITTER": "Twitter",
@@ -221,5 +220,9 @@
     "USER_MENU": "Benutzermen\u00fc",
     "DESKTOPAVAILABLE":"Gehen Sie auf Desktop-Website?",
     "GOTODESKTOP": "Gehen Sie auf Desktop-Website",
-    "STAYONMOBILE": "Bleiben Sie auf der mobilen Website"
+    "STAYONMOBILE": "Bleiben Sie auf der mobilen Website",
+    "MOBILEAVAILABLE":"Gehen Sie auf mobile Website?",
+    "GOTOMOBILE": "Gehen Sie auf mobile Website",
+    "STAYONDESKTOP":"Bleiben Sie auf der Desktop-Seite",
+    "CANCEL": "Annulla"
 }

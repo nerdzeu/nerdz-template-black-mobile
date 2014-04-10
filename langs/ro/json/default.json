@@ -4,7 +4,6 @@
     "BOOKMARKS": "Semne de carte",
     "ID": "ID",
     "SKYPE": "Skype",
-    "JABBER": "Jabber",
     "GITHUB": "GitHub",
     "FACEBOOK": "Facebook",
     "TWITTER": "Twitter",
@@ -221,5 +220,9 @@
     "USER_MENU": "meniul de utilizator",
     "DESKTOPAVAILABLE":"Du-te pe site-ul desktop?",
     "GOTODESKTOP": "Du-te pe site-ul desktop",
-    "STAYONMOBILE": "Rămâi pe site-ul mobil"
+    "STAYONMOBILE": "Rămâi pe site-ul mobil",
+    "MOBILEAVAILABLE":"Du-te pe site-ul mobil?",
+    "GOTOMOBILE": "Du-te pe site-ul mobil",
+    "STAYONDESKTOP":"Rămâi pe site-ul desktop",
+    "CANCEL": "Annulla"
 }

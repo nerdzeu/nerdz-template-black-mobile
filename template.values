@@ -1,24 +1,24 @@
 {
-	/*
-	 * template.values - define here the corrispective JS/CSS files for your template
-	 * This is just plain JSON (with the support of comments).
-	 * Available sections: CSS, JS
-	 */
-	// CSS section
 	"css": {
-		"default": "css/default.css",
+		"default": [
+                "http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css",
+                "css/theme.css",
+                "css/default.css"
+                ],
+        "home": "css/home.css",
         "faq": "css/faq.css"
 	},
-	// JS section
 	"js": {
 		"default": [
                   "js/default.js",
-                  "js/jquery.touchSwipe.min.js",
+                  "http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js",
                   {
                     "lang":
                         [
                           "LOADING", 
-                          "HIDE"
+                          "HIDE",
+                          "ARE_YOU_SURE",
+                          "CANCEL"
                         ]
                   }
                 ],
@@ -32,7 +32,6 @@
 		"bookmarks": "js/bookmarks.js",
 		"share": "js/share.js"
 	},
-    //LANGS section [acceppt only "default" : "path/%lang%/path/path ... path/file.json], where %path% will be replaced with it, en, de, pt, ...
     "langs": {
         "default": "langs/%lang%/json/default.json"
     }

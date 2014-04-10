@@ -130,11 +130,10 @@
         </div>
         <div class="t_cell">
             <br />
-            <input type="checkbox" name="closed" value="1" {if="$closedprofile_b"} checked {/if}/>
+            <input type="checkbox" name="closed" value="1" {if="$closedprofile_b"} checked {/if} onchange="(this.checked)?$('#wl').show():$('#wl').hide()"/>
         </div>
     </div>
-{if="$canshowwhitelist_b"}
-    <div class="t_row">
+    <div class="t_row" id="wl" {if="!$canshowwhitelist_b"} style="display:none" {/if}>
         <div class="t_cell" style="vertical-align: top">
             {$whitelist}: [<a href="/faq.php#q17">?</a>]
         </div>
@@ -146,7 +145,6 @@
             </textarea>
         </div>
     </div>
-{/if}
     <div class="t_row">
         <div class="t_cell">
             <br />
