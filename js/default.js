@@ -1,16 +1,16 @@
 if (!String.prototype.autoLink) {
-    String.prototype.autoLink = function() {
-        str = this;
-        var pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse)\])/gi;
-        urls = this.match(pattern);
-        for (var i in urls) {
-            if (urls[i].match(/\.(png|gif|jpg|jpeg)$/))
-                str = str.replace(urls[i], '[img]' + (urls[i].match(/(^|\s+)https?:\/\//) ? '' : 'http://') + urls[i] + '[/img]');
-            if (urls[i].match(/youtube\.com|https?:\/\/youtu\.be/) && !urls[i].match(/playlist/))
-                str = str.replace(urls[i], '[yt]' + $.trim(urls[i]) + '[/yt]');
-        }
-        return str.replace(pattern, '$1[url]$2[/url]').replace(/\[(\/)?noparse\]/gi, '');
-    };
+  String.prototype.autoLink = function() {
+    str = this;
+    var pattern = REformat(/((((ht|f)tps?:\/\/)|(www\.))([\S]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))/);
+    urls = decodeURI(this).match(pattern);
+    for (var i in urls) {
+      if (urls[i].match(/\.(png|gif|jpg|jpeg)$/))
+        str = str.replace(urls[i], '[img]' + (urls[i].match(/(^|\s+)https?:\/\//) ? '' : 'http://') + urls[i] + '[/img]');
+      if (urls[i].match(/youtu\.?be|vimeo\.com|dai\.?ly(motion)?/) && !urls[i].match(/playlist/))
+        str = str.replace(urls[i], '[video]' + $.trim(urls[i]) + '[/video]');
+    }
+    return str.replace(pattern, '$1[url]$2[/url]').replace(/\[(\/)?noparse\]/gi, '').replace(REformat(/<3/), '\u2665');
+  };
 }
 $(document).bind('mobileinit', function() {
     $.mobile.ajaxEnabled = false;
@@ -77,7 +77,7 @@ $(document).ready(function() {
     $('body').on('mousedown', 'a', function(e) {
         if ($(this).attr('href') && $(this).attr('href').match(/^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/)) {
             e.preventDefault();
-            $(this).attr('onclick', '').attr('href', $(this).attr('href').replace(/^(https?:\/\/)www(\.nerdz\.eu\/.*)/, '$1mobile$2'));
+            $(this).attr('onclick', '').attr('href', $(this).attr('href').replace(/^(https?:\/\/)www(\.nerdz\.eu\/.*)/, '$1mobile$2').replace("https","http"));
         }
     }).on('mousedown', function(e) {
         if ($.inArray(e.target.className, [
@@ -335,7 +335,22 @@ $(document).ready(function() {
         $(this).parent().toggleClass('qu_main-extended');
     });
     plist.on('click', '.yt_frame', function(e) {
-        location.href = 'http' + ('https:' === document.location.protocol ? 's' : '') + '://m.youtube.com/watch?v=' + $(this).data('vid');
+      var baseurl;
+      switch( $(this).data("host") ) {
+        case "youtube":
+          baseurl = "//m.youtube.com/watch?v=";
+        break;
+        case "dailymotion":
+          baseurl = "//touch.dailymotion.com/video/";
+        break;
+        case "vimeo":
+          baseurl = "//vimeo.com/m/";
+        break;
+        case "facebook":
+          baseurl = "//m.facebook.com/photo.php?v=";
+        break;
+      }
+      window.open(document.location.protocol + baseurl + $(this).data('vid'));
     });
     plist.on('keydown', 'textarea', function(e) {
         if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
