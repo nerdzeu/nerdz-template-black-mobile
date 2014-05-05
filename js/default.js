@@ -1,7 +1,7 @@
 if (!String.prototype.autoLink) {
   String.prototype.autoLink = function() {
     str = this;
-    var pattern = REformat(/((((ht|f)tps?:\/\/)|(www\.))([\S]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))/);
+    var pattern = /((((ht|f)tps?:\/\/)|(www\.))([\S]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))/;
     urls = decodeURI(this).match(pattern);
     for (var i in urls) {
       if (urls[i].match(/\.(png|gif|jpg|jpeg)$/))
@@ -9,7 +9,7 @@ if (!String.prototype.autoLink) {
       if (urls[i].match(/youtu\.?be|vimeo\.com|dai\.?ly(motion)?/) && !urls[i].match(/playlist/))
         str = str.replace(urls[i], '[video]' + $.trim(urls[i]) + '[/video]');
     }
-    return str.replace(pattern, '$1[url]$2[/url]').replace(/\[(\/)?noparse\]/gi, '').replace(REformat(/<3/), '\u2665');
+    return str.replace(pattern, '$1[url]$2[/url]').replace(/\[(\/)?noparse\]/gi, '').replace(/<3/, '\u2665');
   };
 }
 $(document).bind('mobileinit', function() {
