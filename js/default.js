@@ -1,17 +1,22 @@
 if (!String.prototype.autoLink) {
-  String.prototype.autoLink = function() {
-    str = this;
-    var pattern = /((((ht|f)tps?:\/\/)|(www\.))([\S]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))/;
-    urls = decodeURI(this).match(pattern);
-    for (var i in urls) {
-      if (urls[i].match(/\.(png|gif|jpg|jpeg)$/))
-        str = str.replace(urls[i], '[img]' + (urls[i].match(/(^|\s+)https?:\/\//) ? '' : 'http://') + urls[i] + '[/img]');
-      if (urls[i].match(/youtu\.?be|vimeo\.com|dai\.?ly(motion)?/) && !urls[i].match(/playlist/))
-        str = str.replace(urls[i], '[video]' + $.trim(urls[i]) + '[/video]');
-    }
-    return str.replace(pattern, '$1[url]$2[/url]').replace(/\[(\/)?noparse\]/gi, '').replace(/<3/, '\u2665');
-  };
+    String.prototype.autoLink = function() {
+        var  str = this,
+        pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse|video|music)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse|video|music)\])/gi,
+        urls = decodeURI(this).match(pattern);
+
+        for (var i in urls) {
+            if (urls[i].match(/\.(png|gif|jpg|jpeg)$/)) {
+                str = str.replace(urls[i], '[img]' + (urls[i].match(/(^|\s+)https?:\/\//) ? '' : 'http://') + urls[i] + '[/img]');
+            }
+            else if (urls[i].match(/youtu\.?be|vimeo\.com|dai\.?ly(motion)?/) && !urls[i].match(/playlist/)) {
+                 str = str.replace(urls[i], '[video]' + $.trim(urls[i]) + '[/video]');
+            }
+
+        }
+        return str.replace(pattern, '$1[url]$2[/url]').replace(/\[(\/)?noparse\]/gi, '');
+    };
 }
+
 $(document).bind('mobileinit', function() {
     $.mobile.ajaxEnabled = false;
 });
