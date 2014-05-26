@@ -1,8 +1,10 @@
 if (!String.prototype.autoLink) {
     String.prototype.autoLink = function() {
         var  str = this,
-        pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse|video|music)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse|video|music)\])/gi,
-        urls = decodeURIComponent(this.replace(/%([^\d].)/g, "%25$1")).match(pattern);
+        pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse|video|music)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse|video|music)\])/gi, urls = [];
+        try {
+            urls = decodeURIComponent(this.replace(/%([^\d].)/g, "%25$1")).match(pattern);
+        } catch(e) { }
 
         for (var i in urls) {
             if (urls[i].match(/\.(png|gif|jpg|jpeg)$/)) {
