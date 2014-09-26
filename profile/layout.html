@@ -110,7 +110,7 @@
         </div>
     {/if}
         <div id="postlist" data-type="profile" data-profileid="{$id_n}" data-location="profile" data-mode="std">
-            {if="$singlepost_b"}
+            {if="isset($post_n)"}
                 {$post_n}
             {/if}
         </div>
@@ -235,7 +235,7 @@
     <br /><br />
     </aside>
     <div id="showpostlist" style="display:none"></div>
-{if="!$singlepost_b"}
+{if="!isset($post_n)"}
     <script type="application/javascript">
         $(document).ready(function() {
             var plist = $("#postlist");
