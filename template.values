@@ -23,14 +23,16 @@
                   }
                 ],
 		"home": "js/home.js",
-    "preferences": "js/preferences.js",
+        "preferences": "js/preferences.js",
 		"profile": "js/profile.js",
 		"project": "js/project.js",
 		"pm": "js/pm.js",
 		"userslist": "js/userslist.js",
 		"projectslist": "js/projectslist.js",
 		"bookmarks": "js/bookmarks.js",
-		"share": "js/share.js"
+		"share": "js/share.js",
+        "search": "js/search.js",
+        "reset": "js/reset.js"
 	},
     "langs": {
         "default": "langs/%lang%/json/default.json"
