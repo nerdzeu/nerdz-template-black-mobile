@@ -301,7 +301,7 @@ label,
     margin-top: .5em;
     margin-bottom: 15px;
 }
-.title {
+.title, .follow, .unfollow {
     border: 0.5px #000 solid;
     min-height: 30px;
     background-color: #FFF;
@@ -310,11 +310,10 @@ label,
     margin: 2px;
     font-weight: bold;
     cursor: pointer;
-}
-.title {
     text-align: center;
     line-height: 30px;
 }
+
 img {
     border: 0px none;
 }

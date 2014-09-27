@@ -336,11 +336,82 @@ $(document).ready(function() {
             keys.length = 0;
         }
     });
+
+    $("ul.topnav li a.rightarrow").on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().find("ul.subnav").toggle('fast');
+    });
+
+    var handleFolUn = function(me, d, oldValue) {
+        me.html(d.message);
+        if(d.status == 'ok') {
+            me.off('click');
+        } else {
+            setTimeout(function() {
+                me.html(oldValue);
+            },1500);
+        }
+    };
+
+    $("#follow, .follow").click(function() {
+        var me = $(this), oldValue = me.html();
+        me.html('...');
+        var type = me.hasClass('project') ? 'project' : 'profile';
+        N.json[type].follow({id: $(this).data('id')},function(d) {
+            handleFolUn(me, d, oldValue);
+        });
+    });
+
+    $("#unfollow, .unfollow").click(function() {
+        var me = $(this), oldValue = me.html();
+        me.html('...');
+        var type = me.hasClass('project') ? 'project' : 'profile';
+        N.json[type].unfollow({id: $(this).data('id')},function(d) {
+            handleFolUn(me, d, oldValue);
+        });
+    });
+
+
     var plist = $('#postlist');
+
     plist.on('click', '.qu_user', function(e) {
         e.preventDefault();
         $(this).parent().toggleClass('qu_main-extended');
     });
+
+    window.fixHeights = function() {
+        plist.find(".nerdz_message, .news").each (function() {
+            var el = $(this).find('div:first');
+            if ((el.height() >= 200 || el.find ('.gistLoad').length > 0) && !el.data('parsed'))
+            {
+                el.data ('real-height', el.height()).addClass ("compressed");
+                var n = el.next();
+                n.prepend ('<a class="more">&gt;&gt; ' + N.getLangData().EXPAND + ' &lt;&lt;</a>'); // Spaces master race.
+            }
+            el.attr('data-parsed','1');
+        });
+    };
+
+    plist.on('click','.more',function() {
+        var me = $(this), par = me.parent(), jenk = par.prev();
+        if (me.data ('busy') == 'godyes') return;
+        me.data ('busy', 'godyes');
+        // obtain the real height of the post and do some hardcore animations
+        //jenk.removeClass ("compressed"); var realHeight = jenk.height();
+        jenk.animate ({ maxHeight: jenk.data ('real-height') }, 500, function() {
+            jenk.removeClass ("compressed").css ("max-height", "none");
+            me.slideUp ('slow', function() {
+                me.remove();
+            });
+        });
+    });
+
+    plist.on('click', "ul.topnav li a.downarrow", function(e) {
+        e.preventDefault();
+        $(this).parent().find("ul.subnav").toggle('fast');
+    });
+
+
     plist.on('click', '.yt_frame', function(e) {
       var baseurl;
       switch( $(this).data("host") ) {
