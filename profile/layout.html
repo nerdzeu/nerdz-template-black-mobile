@@ -16,7 +16,7 @@
                 {/if}
                 </td>
                 <td>
-                  <img src="flags/{$lang_n}.png" alt="{$lang_n}" title="{$lang_n}" style="border: 1px solid #FFF; margin-left:10%" width="18" height="12" />
+                  <img src="{$flagdir_n}{$lang_n}.png#" alt="{$lang_n}" title="{$lang_n}" style="border: 1px solid #FFF; margin-left:10%" width="18" height="12" />
                 </td>
                 <td style="width:34%">
                   <div class="g-plusone" data-size="small" data-count="1" data-href="http://www.nerdz.eu/{$username4link_n}"></div>
@@ -49,7 +49,6 @@
                 </td>
               </tr>
         {/if}
-        
         </table>
             <div class="title">{$about_me}</div><br />
             <span class="light">{$username}:<br /></span>
@@ -62,6 +61,27 @@
             {$birthdate_n}<br />
             <span class="light">{$gender}:<br /></span>
             {$gender_n}<br />
+            <hr />
+            <span class="rightarrow"></span>
+            <a href="/{$username4link_n}interactions">{$interactions}</a><br />
+
+            <span class="rightarrow"></span>
+            <a href="/{$username4link_n}following">
+                <span class="light">Following:</span> {$following_n}
+            </a><br />
+            
+            <span class="rightarrow"></span>
+            <a href="/{$username4link_n}followers">
+                <span class="light">Followers:</span> {$followers_n}
+            </a><br />
+
+            <span class="rightarrow"></span>
+            <a href="/{$username4link_n}friends">
+                <span class="light">Friends:</span> {$friends_n}
+            </a><br />
+            <hr />
+            <span class="light">{$registered_since}:<br /></span>
+            {$registrationtime_n}<br />
             {if="!empty($website_n)"}
                 <br />
                 <span class="light">{$website}:<br /></span>
@@ -71,8 +91,11 @@
                 </span>
             {/if}
             <br />
-            <span class="light">5tUp1d stUfF!1<br /></span>
-            <span class="bold">{$stupidstuffnow_n}</span> -{$stupidstuffless_n} =&gt; <span class="bold">{$stupidstuffnext_n}</span><br /><br />
+            <span class="light">5tUp1d stUfF!1:<br /></span>
+            <span>{$stupidstuffnow_n} - {$stupidstuffless_n} ⇒ {$stupidstuffnext_n}</span><br />
+            <span class="light">Template:<br /></span>
+            <span>{$template_n}</span>
+            <br /><br />
 
             <span class="light">{$id}:<br /></span>
             {$id_n}<br />
@@ -83,16 +106,6 @@
     
             <span class="light">Browser:</span><br />{$useragent_a.name} {$useragent_a.version}<br />
             <span class="light">Platform:</span><br />{$useragent_a.platform} {$useragent_a.platver}<br />
-            {if="!empty($friends_a)"}
-                <span class="light"><br />
-                    {$friends}    ({$totalfriends_n})
-                </span><br />
-                <div style="max-height:250px; overflow: auto">
-                {loop="friends_a"}
-                    <a href="/{$value.username4link_n}">{$value.username_n}</a><br />
-                {/loop}
-            </div>
-            {/if}
             <br /><br />
         </div>
     </aside>
