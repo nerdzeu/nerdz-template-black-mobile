@@ -81,19 +81,7 @@
     </aside>
     <article id="center_col" class="page">
     {if="$canwrite_b"}
-        <div id="fast_nerdz">
-            <div>
-                <form id="stdfrm" data-to="{$id_n}">
-                    <textarea id="frmtxt" name="message" ></textarea>
-                    <span style="float:right; margin-top: -10px;"><input type="submit" data-mini="true" value="{$nerdz_it}"/></span>
-                    {if="$canwritenews_b"}
-                        <span style="float:left; margin-top: -10px;"><input type="checkbox" name="news" value="1" id="sendnews" data-mini="true" />&nbsp;<label for="sendnews">News</label></span>
-                    {/if}
-                    <div id="pmessage" class="error"></div>
-                </form>
-            </div>
-            <br />
-        </div>
+        {include="common/form"}
     {/if}
         <div id="postlist" data-type="project" data-projectid="{$id_n}" data-location="project" data-limit="0" data-mode="std">
             {ignore} Data type == project è un progetto, parte da limit 0 a fare le richieste{/ignore}
@@ -104,19 +92,7 @@
         <br /><br />
     </article>
     <aside id="right_col">
-        <div class="title">
-            {$user_menu}
-        </div>
-        <div class="box_menu">
-          <ul>
-              <a href="/"><li class="menu-home">Home</li></a>
-              <a href="/pm.php"><li class="menu-mess">{$pm}</li></a>
-              <a href="/{$myusername4link_n}"><li class="menu-prof">{$profile}</li></a>
-              <a href="/preferences.php"><li class="menu-pref">{$preferences}</li></a>
-              <a href="/" id="logout" data-tok="{$tok_n}"><li class="menu-exit">{$logout}</li></a>
-          </ul>
-        </div>
-    
+        {include="common/menu"}    
     {if="!empty($description_n)"}
         <div class="title">{$description}</div>
         <div class="box">

@@ -1,6 +1,8 @@
 <hr />
 {$projects_descr}
-    <button onclick="location.href='/project.php'" style="margin-left:33%; width:33%; text-align:center">{$create}</button>
+<span style="float:right; margin-right:5%; margin-top: -2%">
+    <button onclick="location.href='/project.php'">{$create}</button>
+</span>
 <hr />
 {$project_list}
 <div id="cont">
@@ -24,3 +26,15 @@
 </table>
 </div>
 <br /><br />
+
+<script type="application/javascript">
+$(document).ready(function() {
+    $(".manage").on('click',function(e){
+        e.preventDefault();
+        $("#cont").html(N.getLangData().LOADING);
+        N.html.post('/pages/preferences/projects.html.html.php',{id: $(this).data('id')},function(data) {
+            $("#cont").html(data);
+        });
+    });
+});
+</script>

@@ -239,6 +239,11 @@ label,
 .more {
     cursor: pointer;
 }
+
+.ui-select{
+    margin:0;
+}
+
 .more {
     float: left;
     clear: both;
@@ -650,9 +655,85 @@ pre {
     border-bottom: 1px solid white;
     margin-bottom: 4px;
 }
-.nerdz-code-title: first-letter {
-    text-transform: uppercase;
-}
+
 .prettyprint {
     padding: 3px 3px 3px 3px;
+}
+
+/* menu */
+ul.topnav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    display: inline;
+}
+
+ul.topnav li ul.subnav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    width: 150px;
+    float: right;
+}
+
+ul.subnav {
+    position: absolute;
+    top: 12px;
+    right: 0px;
+}
+
+ul.topnav li ul.subnav li {
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    border-top: 1px solid #252525;
+    border-bottom: 1px solid #444;
+    clear: both;
+    width: 150px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.downarrow, .rightarrow {
+    background: none repeat scroll 0 0 transparent;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    height: 6px;
+    width: 6px;
+    margin-left: 10px;
+    transform: rotate(45deg);
+    transition-duration: 300ms, 300ms;
+    transition-property: border-width, top;
+    outline: none;
+    display: block;
+}
+
+
+.rightarrow {
+    transform: rotate(315deg);
+    margin: 4px 7px auto 0;
+    float: left;
+}
+
+.topright {
+    float: right;
+    margin-right: 1px;
+    margin-bottom: 4px;
+}
+
+.bottomleft {
+    float: left;
+    margin-top: 3px;
+    width: 10px;
+    height: 10px;
+}
+
+.pid {
+    position: absolute;
+ /* father with position relative*/
+    top: 0px;
+    right: 15px;
 }

@@ -1,39 +1,41 @@
 {
-	"css": {
-		"default": [
-                "http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css",
+    "css": {
+        "default": [
+                "https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css",
                 "css/theme.css",
                 "css/default.css"
-                ],
-        "home": "css/home.css",
-        "faq": "css/faq.css"
-	},
-	"js": {
-		"default": [
-                  "js/default.js",
-                  "http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js",
-                  {
-                    "lang":
-                        [
-                          "LOADING", 
-                          "HIDE",
-                          "ARE_YOU_SURE",
-                          "CANCEL"
-                        ]
-                  }
-                ],
-		"home": "js/home.js",
+            ],
+            "home": "css/home.css",
+            "faq": "css/faq.css"
+    },
+    "js": {
+        "default": [
+            /* jQuery-mobile fuck you.
+             * http://stackoverflow.com/questions/10214083/how-to-bind-mobileinit-event-in-jquery-mobile
+             */
+            "js/default.js",
+            "https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js",
+            {
+                "lang": [
+                    "LOADING", 
+                    "HIDE",
+                    "ARE_YOU_SURE",
+                    "CANCEL"
+                ]
+            }
+        ],
+        "home": "js/home.js",
         "preferences": "js/preferences.js",
-		"profile": "js/profile.js",
-		"project": "js/project.js",
-		"pm": "js/pm.js",
-		"userslist": "js/userslist.js",
-		"projectslist": "js/projectslist.js",
-		"bookmarks": "js/bookmarks.js",
-		"share": "js/share.js",
+        "profile": "js/profile.js",
+        "project": "js/project.js",
+        "pm": "js/pm.js",
+        "userslist": "js/userslist.js",
+        "projectslist": "js/projectslist.js",
+        "bookmarks": "js/bookmarks.js",
+        "share": "js/share.js",
         "search": "js/search.js",
         "reset": "js/reset.js"
-	},
+    },
     "langs": {
         "default": "langs/%lang%/json/default.json"
     }

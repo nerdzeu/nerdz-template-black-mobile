@@ -1,32 +1,19 @@
-<article id="center_col">
-    <ul class="nav" id="prefbar">
-       <li class="title" id="account">{$account}</li>
-       <li class="title" id="profile">{$profile}</li>
-       <li class="title" id="guests">{$guests}</li>
-       <li class="title" id="projects">{$projects}</li>
-       <li class="title" id="language">{$language}</li>
-       <li class="title" id="themes">{$themes}</li>
-       <li class="title" id="delete">{$delete}</li>
+<div id="left_col">&nbsp;</div>
+<div id="center_col">
+    <ul id="prefbar" class="nav">
+        <li class="title" id="account">{$account}</li>
+        <li class="title" id="profile">{$profile}</li>
+        <li class="title" id="guests">{$guests}</li>
+        <li class="title" id="projects">{$projects}</li>
+        <li class="title" id="language">{$language}</li>
+        <li class="title" id="themes">{$themes}</li>
+        <li class="title" id="delete">{$delete}</li>
     </ul>
     <br />
-    <div id="content" class="page" style="float:left">
+    <div id="content" class="page">
         <br />
-        <h3 style="text-align:center;margin:auto;width:60%">
+        <h3 style="text-align:center;margin:auto">
             {$description_n}
         </h3>
     </div>
-</article>
-<aside id="right_col">
-  <div class="title">
-      {$user_menu}
-  </div>
-  <div class="box_menu">
-        <ul>
-            <a href="/"><li class="menu-home">Home</li></a>
-            <a href="/pm.php"><li class="menu-mess">{$pm}</li></a>
-            <a href="/{$myusername4link_n}"><li class="menu-prof">{$profile}</li></a>
-            <a href="/preferences.php"><li class="menu-pref">{$preferences}</li></a>
-            <a href="/" id="logout" data-tok="{$tok_n}"><li class="menu-exit">{$logout}</li></a>
-        </ul>
-  </div>
-</aside>
+</div>

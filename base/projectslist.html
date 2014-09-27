@@ -28,16 +28,5 @@
     <br /><br /><br />
 </article>
 <aside id="right_col">
-    <div class="title">
-        {$user_menu}
-    </div>
-    <div class="box_menu">
-        <ul>
-            <a href="/"><li class="menu-home">Home</li></a>
-            <a href="/pm.php"><li class="menu-mess">{$pm}</li></a>
-            <a href="/{$myusername4link_n}"><li class="menu-prof">{$profile}</li></a>
-            <a href="/preferences.php"><li class="menu-pref">{$preferences}</li></a>
-            <a href="/" id="logout" data-tok="{$tok_n}"><li class="menu-exit">{$logout}</li></a>
-        </ul>
-    </div>
+    {include="common/menu"}
 </aside>

@@ -3,10 +3,29 @@
     {$delete_descr}
     <hr />
     <br />
-    <form class="page" id="delfrm" style="text-align:center">
-        <img alt="captcha" id="captcha" style="border:1px solid #FFF;width:90px;height:30px" />&nbsp;&nbsp;
-        <span onclick="N.reloadCaptcha()" style="font-size:6pt;cursor:pointer">{$reload_captcha}</span>
-        <input type="text" name="captcha" id="frmdelcpt" /><br>
+    <form class="page" id="delfrm">
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <img alt="captcha" id="captcha" style="border:1px solid #FFF;width:90px;height:30px" />&nbsp;&nbsp;
+                        <span onclick="N.reloadCaptcha()" style="font-size:6pt;cursor:pointer">{$reload_captcha}</span>
+                    </div>
+                    <div>
+                        <input type="text" name="captcha" id="frmdelcpt" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {$motivation} ({$optional}): 
+                    <textarea id="motivation" name="motivation" style="width: 100%; height: 60px"></textarea><br />
+                    <div class="small">
+                        {$message_public}
+                    </div>
+                </td>
+            </tr>
+        </table>
         <input type="submit" value="{$delete}" />
     </form>
     <div id="res"></div>

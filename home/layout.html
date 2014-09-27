@@ -57,16 +57,7 @@
       <br /><br />
   </aside>
   <article id="center_col">
-      <div id="fast_nerdz">
-          <div>
-              <form id="stdfrm">
-                  <textarea id="frmtxt" name="message"></textarea>
-                  <span style="float:right; margin-top: -10px;"><input type="submit" data-mini="true" value="{$nerdz_it}"/></span>
-                  <span id="pmessage" class="error"></span>
-              </form>
-          </div>
-          <br />
-      </div>
+      {include="common/form"}
       <div id="postlist" data-type="profile" data-location="home" data-mode="std"></div>
       <br /><br />
       {ignore} Data type == profile di default, ma cambia poi quando si aggiorna #postlist con i projetti
@@ -74,19 +65,8 @@
               mode è li per indicare al gestore dello scrolldown se deve caricare normalemente (std) oppure scrollare la pagina di ricerca (search)
       {/ignore}
   </article>
-  <aside id="right_col">	 
-      <div class="title">
-          {$user_menu}
-      </div>
-      <div class="box_menu">
-        <ul>
-            <a href="/"><li class="menu-home">Home</li></a>
-            <a href="/pm.php"><li class="menu-mess">{$pm}</li></a>
-            <a href="/{$myusername4link_n}"><li class="menu-prof">{$profile}</li></a>
-            <a href="/preferences.php"><li class="menu-pref">{$preferences}</li></a>
-            <a href="/" id="logout" data-tok="{$tok_n}"><li class="menu-exit">{$logout}</li></a>
-        </ul>
-      </div>
+  <aside id="right_col">
+      {include="common/menu"}
   {if="!empty($followed_a)"}
     <div class="title" id="rightmenu_title">
         {$you_follow}
