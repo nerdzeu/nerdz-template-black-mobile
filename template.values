@@ -17,16 +17,22 @@
             "https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js",
             {
                 "lang": [
-                    "LOADING", 
+                    "LOADING",
+                    "EXPAND", "OPEN", "EDIT",
                     "HIDE",
                     "ARE_YOU_SURE",
                     "CANCEL"
                 ]
             }
         ],
-        "home": "js/home.js",
+        "home": [ "js/home.js", {
+            "lang": [ "HIDDEN_POSTS", "EXPAND", "HIDE" ],
+            "outputVersion": true // you should probably not change this
+        } ],
         "preferences": "js/preferences.js",
-        "profile": "js/profile.js",
+        "profile": [ "js/profile.js", {
+            "lang": [ "MOTIVATION" ]
+        } ],
         "project": "js/project.js",
         "pm": "js/pm.js",
         "userslist": "js/userslist.js",

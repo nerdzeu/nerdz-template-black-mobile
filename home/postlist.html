@@ -1,100 +1,121 @@
 {loop="list_a"}
-    <div id="post{$value.hpid_n}" data-hpid="{$value.hpid_n}" class="post" data-hide="{$hide}">
-    {if="$value.news_b"}
-        <span class="nerdz_date" style="float:left">
-            {$value.datetime_n}
-        </span>
-        <div class="news">
-            {$value.message_n}
-            <hr />
-            <div class="post_footer">
-                <a href="/{$value.to4link_n}{$value.pid_n}" style="color:#000">Link</a> &nbsp;&nbsp;
-                <a class="showcomments" data-hpid="{$value.hpid_n}" data-refto="commentlist{$value.hpid_n}">
-                    {$comments} ({$value.postcomments_n})
-                </a>
-                <span style="float: right" class="thumbs">
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                  <span class='thumbs-counter{if="$value.thumbs_n > 0"} nerdz_thumbsNumPos{else}{if="$value.thumbs_n < 0"} nerdz_thumbsNumNeg{/if}{/if}'>{if="$value.thumbs_n > 0"}+{/if}{$value.thumbs_n}</span>
-                  &nbsp;&nbsp;
-                  <span class="nerdz_thumbs" data-refto="{$value.hpid_n}">
-                    <span class='vote up{if="$value.uthumb_n == 1"} voted{/if}'>&#9650;</span>&nbsp;&nbsp;
-                    <span class='vote down{if="$value.uthumb_n ==-1"} voted{/if}'>&#9660;</span>&nbsp;&nbsp;
-                  </span>
-                </span>
-                <a class="hide" data-postid="post{$value.hpid_n}" style="float: right">{$hide}</a>
-            </div>
-        </div>
-    {else}
-        <div class="nerdz_from">
-            <span class="more_opts"></span>
+    <div id="post{$value.hpid_n}" data-hpid="{$value.hpid_n}">
+    <script type="application/javascript">var lnk{$value.hpid_n} = "/{$value.to4link_n}{$value.pid_n}";</script>
+    <div class="nerdz_from">
+        {if="!$value.news_b"}
             <a href="/{$value.from4link_n}">{$value.from_n}</a>
             {if="$value.fromid_n != $value.toid_n"}
-                &nbsp;=&gt; <a href="/{$value.to4link_n}">{$value.to_n}</a>
+                &nbsp;⇒ <a href="/{$value.to4link_n}">{$value.to_n}</a>
             {else}
             :
             {/if}
-            <span class="nerdz_date">
-                <time>{$value.datetime_n}</time>
-            </span>
-        </div>
-        <div class="nerdz_message">
-            <span class="nerdz_date" style="font-size: 7pt">
-                #{$value.pid_n}
-            </span>
-            <div class="post">
-            {$value.message_n}
-            </div>
-            <div class="more_opt">
-              <a class="hide" data-postid="post{$value.hpid_n}" title="{$hide}"></a>
-              {if="$value.canremovepost_b"}
-                  <a class="delpost" data-hpid="{$value.hpid_n}" data-refto="post{$value.hpid_n}" title="{$remove}"></a>
-              {/if}
-              {if="$value.caneditpost_b"}
-                  <a class="editpost" data-hpid="{$value.hpid_n}" data-refto="post{$value.hpid_n}" title="{$edit}"></a></a>
-              {/if}
-              {if="$value.canshowlock_b"}
-                  {if="$value.lock_b"}
-                  <a href="#" class="imglocked" data-hpid="{$value.hpid_n}" title="{$recv_notify}"></a>
-                  {else}
-                  <a href="#" class="imgunlocked" data-hpid="{$value.hpid_n}" title="{$not_recv_notify}"></a>
+        {/if}
+        <div class="nerdz_date"{if="$value.news_b"} style="width:100%; text-align:right"{/if}>
+               {if="$value.news_b"}
+               <time class="nerdz_date" style="float:left">
+                    {$value.datetime_n}
+                </time>
+               {/if}
+              <span class="revisions">
+                  {if="$value.revisions_n > 0"}
+                  <span title="{$number_of_modifications}: {$value.revisions_n}" class="oldrev" data-refto="post{$value.hpid_n}" data-revisions="{$value.revisions_n}" data-hpid="{$value.hpid_n}">&#9664;</span>&nbsp;&nbsp;
                   {/if}
-              {/if}
-              {if="$value.canshowlurk_b"}
-                  {if="$value.lurk_b"}
-                    <a href="#" class="unlurk" data-hpid="{$value.hpid_n}" title="Unlurk"></a>
-                    {else}
-                    <a href="#" class="lurk" data-hpid="{$value.hpid_n}" title="Lurk"></a>
-                  {/if}
-              {/if}
-              {if="$value.canshowbookmark_b"}
-                  {if="$value.bookmark_b"}
-                    <a href="#" class="unbookmark" data-hpid="{$value.hpid_n}" title="Unbookmark"></a>
-                    {else}
-                    <a href="#" class="bookmark" data-hpid="{$value.hpid_n}" title="Bookmark"></a>
-                  {/if}
-              {/if}
-            </div>
-            <div class="post_footer" data-expand="{$expand}">
-              <span style="float:left">
-                <a href="/{$value.to4link_n}{$value.pid_n}" class="post_link">Link</a>&nbsp;&nbsp;
-                <a class="showcomments" data-hpid="{$value.hpid_n}" data-refto="commentlist{$value.hpid_n}">
-                    {$comments} ({$value.postcomments_n})
-                </a>
               </span>
-              <span style="float: right" class="thumbs">
+               {if="!$value.news_b"}
+                  <time>{$value.datetime_n}</time>
+               {/if}
+              <span class="thumbs">
+                {if="!$value.news_b"}
+                    &nbsp;|&nbsp;
+                {/if}
                 <span class='thumbs-counter{if="$value.thumbs_n > 0"} nerdz_thumbsNumPos{else}{if="$value.thumbs_n < 0"} nerdz_thumbsNumNeg{/if}{/if}'>{if="$value.thumbs_n > 0"}+{/if}{$value.thumbs_n}</span>
                 &nbsp;&nbsp;
                 <span class="nerdz_thumbs" data-refto="{$value.hpid_n}">
-                  <span class='vote up{if="$value.uthumb_n == 1"} voted{/if}'>&#9650;</span>&nbsp;&nbsp;
-                  <span class='vote down{if="$value.uthumb_n ==-1"} voted{/if}'>&#9660;</span>&nbsp;&nbsp;
+                  <a class='vote up{if="$value.uthumb_n == 1"} voted{/if}'>&#9650;</a>&nbsp;&nbsp;
+                  <a class='vote down{if="$value.uthumb_n ==-1"} voted{/if}'>&#9660;</a>&nbsp;&nbsp;
                 </span>
               </span>
-            </div>
+              {if="$value.language_n != $mylang_n"}
+                <img src="{$flagdir_n}{$value.language_n}.png#" alt="{$value.language_n}" title="{$value.language_n}" width="18" height="12" />
+              {/if}
         </div>
-    {/if}
-      <div>
-          <script type="application/javascript">var lnk{$value.hpid_n} = "/{$value.to4link_n}{$value.pid_n}";</script>
-          <div id="commentlist{$value.hpid_n}" class="commentlist"></div>
-      </div>
     </div>
+    <div class="{if="$value.news_b"}news{else}nerdz_message{/if}">
+        <div style="position:relative">
+            <span class="nerdz_date">
+                <ul class="topnav">
+                    <li>
+                        <a href="#" class="downarrow topright"></a>
+                        <ul class="subnav">
+                            {if="$value.canremovepost_b"}
+                            <li>
+                                <a class="delpost" data-hpid="{$value.hpid_n}" data-refto="post{$value.hpid_n}">
+                                    <span class="rightarrow"></span>
+                                    {$remove}
+                                </a>
+                            </li>
+                            {/if}
+                            {if="$value.caneditpost_b"}
+                            <li>
+                                <a class="edit" data-hpid="{$value.hpid_n}" data-refto="post{$value.hpid_n}">
+                                    <span class="rightarrow"></span>
+                                    {$edit}
+                                </a>
+                            </li>
+                            {/if}
+                            {if="$value.canclosepost_b"}
+                            <li>
+                                <a class="{if="$value.closed_b"}open{else}close{/if}" data-hpid="{$value.hpid_n}" data-refto="post{$value.hpid_n} .nerdz_date.pid">
+                                    <span class="rightarrow"></span>
+                                    {if="$value.closed_b"}{$open}{else}{$close}{/if}
+                                </a>
+                            </li>
+                            {/if}
+                            <li>
+                                <a class="hide" data-postid="post{$value.hpid_n}">
+                                    <span class="rightarrow"></span>
+                                    {$hide}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </span>
+            <span class="nerdz_date{if="$value.canremovepost_b || $value.caneditpost_b || $value.canclosepost_b"} pid{/if}"{if="$value.closed_b"} style="color:red" title="{$closed_post}"{else} style="font-size: 7pt"{/if}>
+                #{$value.pid_n}
+            </span>
+            {$value.message_n}
+        </div>
+        <div style="clear:both; padding-top: 5px" class="small">
+            <a href="/{$value.to4link_n}{$value.pid_n}" class="post_link">Link</a>&nbsp;&nbsp;
+            <a class="showcomments" style="width:60%" data-hpid="{$value.hpid_n}" data-refto="commentlist{$value.hpid_n}">
+                {$comments} ({$value.postcomments_n})
+            </a>
+            {if="$value.canshowlock_b"}
+                {if="$value.lock_b"}
+                    <img class="imglocked" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="{$recv_notify}" onclick="" />
+                {else}
+                    <img class="imgunlocked" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="{$not_recv_notify}" onclick="" />
+                {/if}
+            {/if}
+            {if="$value.canshowlurk_b"}
+                {if="$value.lurk_b"}
+                    <img class="unlurk" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Unlurk" style="float:right; margin-left:5px" onclick="" />
+                {else}
+                    <img class="lurk" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Lurk" style="float:right; margin-left:5px" onclick="" />
+                {/if}
+            {/if}
+            {if="$value.canshowbookmark_b"}
+                {if="$value.bookmark_b"}
+                    <img class="unbookmark" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Unbookmark" style="float:right; margin-left:5px" onclick="" />
+                {else}
+                    <img class="bookmark" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Bookmark" style="float:right; margin-left:5px" onclick="" />
+                {/if}
+            {/if}
+        </div>
+    </div>
+    <div>     
+        <div id="commentlist{$value.hpid_n}" style="margin-top:1%; margin-bottom:15px"></div>
+    </div>
+</div>
 {/loop}
