@@ -32,6 +32,9 @@ legend,
 	color: inherit;
 	text-shadow: inherit;
 }
+.ui-checkbox {
+    margin:0;
+}
 /* Form labels (overrides font-weight bold in bars, and mini font-size) */
 .ui-mobile label,
 div.ui-controlgroup-label {

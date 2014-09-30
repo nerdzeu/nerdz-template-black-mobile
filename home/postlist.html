@@ -93,23 +93,23 @@
             </a>
             {if="$value.canshowlock_b"}
                 {if="$value.lock_b"}
-                    <img class="imglocked" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="{$recv_notify}" onclick="" />
+                <a class="imglocked" data-hpid="{$value.hpid_n}" width="32" height="32" title="{$recv_notify}"></a>
                 {else}
-                    <img class="imgunlocked" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="{$not_recv_notify}" onclick="" />
+                <a class="imgunlocked" data-hpid="{$value.hpid_n}" width="32" height="32" title="{$not_recv_notify}" ></a>
                 {/if}
             {/if}
             {if="$value.canshowlurk_b"}
                 {if="$value.lurk_b"}
-                    <img class="unlurk" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Unlurk" style="float:right; margin-left:5px" onclick="" />
+                <a class="unlurk" data-hpid="{$value.hpid_n}" width="32" height="32" title="Unlurk" style="float:right; margin-left:5px"></a>
                 {else}
-                    <img class="lurk" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Lurk" style="float:right; margin-left:5px" onclick="" />
+                <a class="lurk" data-hpid="{$value.hpid_n}" width="32" height="32" title="Lurk" style="float:right; margin-left:5px"></a>
                 {/if}
             {/if}
             {if="$value.canshowbookmark_b"}
                 {if="$value.bookmark_b"}
-                    <img class="unbookmark" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Unbookmark" style="float:right; margin-left:5px" onclick="" />
+                <a class="unbookmark" data-hpid="{$value.hpid_n}" width="32" height="32" title="Unbookmark" style="float:right; margin-left:5px"></a>
                 {else}
-                    <img class="bookmark" data-hpid="{$value.hpid_n}" alt="" width="32" height="32" title="Bookmark" style="float:right; margin-left:5px" onclick="" />
+                <a class="bookmark" data-hpid="{$value.hpid_n}" width="32" height="32" title="Bookmark" style="float:right; margin-left:5px"></a>
                 {/if}
             {/if}
         </div>

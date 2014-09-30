@@ -21,6 +21,7 @@ $( document ).bind( 'mobileinit', function ( ) {
 } );
 $( document ).ready( function ( ) {
     $( 'aside' ).css( 'height', $( window ).height( ) - 42 );
+
     $( window ).resize( function ( ) {
         $( 'aside' ).css( 'height', $( window ).height( ) - 42 );
     } );
