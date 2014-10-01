@@ -5,13 +5,8 @@
         </div>
         <div id="leftmenu" class="box_menu">
             <ul style="color: #AFAFAF">
-                <li>
-                <form id="footersearch">
-                    <input data-type="search" type="text" name="q" placeholder="{$search}" data-mini="true"/>
-                </form>
-                </li>
                 <li><a id="profilePostList" href="#">NERDZ</a>
-                <span id="nerdzselect" class="icon_expand downarrow topright" title="[{$from}...]"></span>
+                <span id="nerdzselect" class="icon_expand" title="[{$from}...]"></span>
                 <a href="/feed.php" class="icon_rss"></a>
                 <div id="nerdzlist" style="display:none;">
                     <ul>
@@ -28,7 +23,7 @@
                 </div>
                 </li>
                 <li><a id="projectPostList" href="#">{$projects}</a>
-                <span id="projselect" class="icon_expand downarrow topright" title="[{$from}...]"></span>
+                <span id="projselect" class="icon_expand" title="[{$from}...]"></span>
                 <a href="/feed.php?project=1" class="icon_rss"></a>
                 <div id="projlist" style="display:none; ">
                     <ul>
@@ -85,10 +80,6 @@
     {include="common/form"}
     <div id="postlist" data-type="profile" data-location="home" data-mode="std"></div>
     <br /><br />
-    {ignore} Data type == profile di default, ma cambia poi quando si aggiorna #postlist con i projetti
-    location sta a indicare dove ci troviamo (che lo utilizzo e modifico nel footersearch)
-    mode è li per indicare al gestore dello scrolldown se deve caricare normalemente (std) oppure scrollare la pagina di ricerca (search)
-    {/ignore}
 </article>
 <aside id="right_col">
     {include="common/menu"}

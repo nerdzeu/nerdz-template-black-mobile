@@ -67,7 +67,7 @@ $( document ).ready( function ( ) {
         return false;
     } );
     $( 'iframe' ).attr( 'scrolling', 'no' );
-    $( 'body' ).on( 'mousedown', 'a', function ( e ) {
+    $( 'body' ).on( 'click', 'a', function ( e ) {
         if ( $( this ).attr( 'href' ) && $( this ).attr( 'href' ).match( /^https?:\/\/(?:www|mobile)\.nerdz\.eu\/.*/ ) ) {
             e.preventDefault( );
             $( this ).attr( 'onclick', '' ).attr( 'href', $( this ).attr( 'href' ).replace( /^(https?:\/\/)www(\.nerdz\.eu\/.*)/, '$1mobile$2' ).replace( "https", "http" ) );
@@ -132,7 +132,7 @@ $( document ).ready( function ( ) {
         $( this ).html( isNaN( nold ) ? old : '0' );
     } );
     // il footersearch si mostra solo in alcune pagine
-    var wrongPages = [ '/bbcode.php', '/terms.php', '/faq.php', '/stats.php', '/rank.php', '/preferences.php', '/informations.php',     '/preview.php' ];
+    var wrongPages = [ '/bbcode.php', '/terms.php', '/faq.php', '/stats.php', '/rank.php', '/preferences.php', '/informations.php', '/preview.php' ];
     if ( $.inArray( location.pathname, wrongPages ) != -1 ) {
         $( "#footersearch" ).hide( );
     }
@@ -271,9 +271,6 @@ $( document ).ready( function ( ) {
                     b.children( '#convfrm' ).remove( );
                 } );
             } );
-            b.on( 'keydown', 'textarea', function ( e ) {
-                if ( e.which === 13 ) $( '#convfrm' ).submit( );
-            } );
             b.on( 'submit', '#convfrm', function ( e ) {
                 e.preventDefault( );
                 setTimeout( function ( ) {
@@ -331,11 +328,6 @@ $( document ).ready( function ( ) {
         $( this ).html( isNaN( nold ) ? old : '0' );
     } );
 
-    $( 'textarea' ).on( 'keydown', function ( e ) {
-        if ( e.ctrlKey && ( e.keyCode === 10 || e.keyCode === 13 ) ) {
-            $( this ).parent( ).trigger( 'submit' );
-        }
-    } );
     $( "ul.topnav li a.rightarrow" ).on( 'click', function ( e ) {
         e.preventDefault( );
         $( this ).parent( ).find( "ul.subnav" ).toggle( 'fast' );
@@ -411,18 +403,13 @@ $( document ).ready( function ( ) {
             } );
         } );
     } );
-    plist.on( 'click', "ul.topnav li a.downarrow", function ( e ) {
+    plist.on( 'click', "ul.topnav li a:nth-of-type(1)", function ( e ) {
         e.preventDefault( );
         $( this ).parent( ).find( "ul.subnav" ).toggle( 'fast' );
     } );
     plist.on( 'click', ".yt_frame", function ( e ) {
         e.preventDefault( );
         N.yt( $( this ), $( this ).data( "vid" ) );
-    } );
-    plist.on( 'keydown', 'textarea', function ( e ) {
-        if ( e.ctrlKey && ( e.keyCode === 10 || e.keyCode === 13 ) ) {
-            $( this ).parent( ).trigger( 'submit' );
-        }
     } );
     plist.on( 'click', '.delcomment', function ( e ) {
         e.preventDefault( );
@@ -567,7 +554,7 @@ $( document ).ready( function ( ) {
                 timeVal = tagTime.html( );
                 tagTime.html( r.datetime );
                 if ( !me.parent( ).find( ".newrev" ).length ) {
-                    var s = $( document.createElement( "span" ) );
+                    var s = $( document.createElement( "a" ) );
                     s.attr( "class", "newrev" + ( id === 'hcid' ? ' comment' : '' ) );
                     s.attr( 'data-refto', refto );
                     s.attr( 'data-' + id, me.data( id ) );
@@ -578,7 +565,7 @@ $( document ).ready( function ( ) {
                     pidTag = null;
                 if ( id === 'hcid' ) {
                     div = $( "#" + refto ).find( ".nerdz_comments" );
-                    pidTag = $( document.createElement( "span" ) );
+                    pidTag = $( document.createElement( "a" ) );
                     pidTag.append( div.find( ".delcomment" ) );
                     pidTag.html( pidTag.html( ) + "#1" );
                     pidTag.css( 'font-size', '0' );

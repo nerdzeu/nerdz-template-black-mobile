@@ -10,7 +10,7 @@
             <div class="nerdz_date">
               <span class="revisions">
                   {if="$value.revisions_n > 0"}
-                  <span title="{$number_of_modifications}: {$value.revisions_n}" class="oldrev" data-refto="post{$value.hpid_n}" data-revisions="{$value.revisions_n}" data-hpid="{$value.hpid_n}">&#9664;</span>&nbsp;&nbsp;
+                  <a title="{$number_of_modifications}: {$value.revisions_n}" class="oldrev" data-refto="post{$value.hpid_n}" data-revisions="{$value.revisions_n}" data-hpid="{$value.hpid_n}">&#9664;</a>&nbsp;&nbsp;
                   {/if}
               </span>
               <time>{$value.datetime_n}</time>
@@ -34,7 +34,7 @@
                 <span class="nerdz_date">
                     <ul class="topnav">
                         <li>
-                            <a href="#" class="downarrow topright"></a>
+                            <a href="#" class="icon_expand"></a>
                             <ul class="subnav">
                                 {if="$value.canremovepost_b"}
                                 <li>

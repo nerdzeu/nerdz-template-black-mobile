@@ -5,7 +5,6 @@
                 "css/theme.css",
                 "css/default.css"
             ],
-            "home": "css/home.css",
             "faq": "css/faq.css"
     },
     "js": {
