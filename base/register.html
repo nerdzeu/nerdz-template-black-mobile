@@ -1,136 +1,134 @@
+<form id="loginfrm" style="text-align: center">
+    <p>Benvenuto su Nerdz!<br />
+    <a href="#presentation"><small>Cos'è NERDZ?</small></a></p>
 
-      <form id="loginfrm" style="text-align: center">
-        <p>Benvenuto su Nerdz!<br />
-        <a href="#presentation"><small>Cos'è NERDZ?</small></a></p>
-        
-        <input type="text" name="username" placeholder="{$username}" style="width:80%" required />
-        <input type="password" name="password" placeholder="*******" style="width:80%" required />        
-        <input type="submit" value="{$login}" />
+    <input type="text" name="username" placeholder="{$username}" style="width:80%" required />
+    <input type="password" name="password" placeholder="*******" style="width:80%" required />        
+    <input type="submit" value="{$login}" />
 
-        <span style="float:left">
-          <input type="checkbox" name="setcookie" id="remember" data-mini="true" checked="checked">
-          <label for="remember" data-mini="true">{$remember_me}</label>
-        </span>
-        <span style="float:right">
-          <input type="checkbox" name="offline" id="markoffline" data-mini="true">
-          <label for="markoffline">{$hide_status}</label>
-        </span>
-        <input type="hidden" value="{$tok_n}" name="tok" />
-        <span id="login_msg"></span>
-        <br style="clear: both"/>
-        
-        <a href="/reset.php">{$forgot_password}</a><br />
-        <a href="#register">{$register}!</a>
-      </form>
-    </div>
-  </div>
+    <span style="float:left">
+        <input type="checkbox" name="setcookie" id="remember" data-mini="true" checked="checked">
+        <label for="remember" data-mini="true">{$remember_me}</label>
+    </span>
+    <span style="float:right">
+        <input type="checkbox" name="offline" id="markoffline" data-mini="true">
+        <label for="markoffline">{$hide_status}</label>
+    </span>
+    <input type="hidden" value="{$tok_n}" name="tok" />
+    <span id="login_msg"></span>
+    <br style="clear: both"/>
 
-  <div data-role="page" id="presentation">
-  <div data-role="header" data-id="header">
-    <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/" style="color: #000">NERDZ <small>mobile</small></a></div>
-  </div>
-  <p>{$presentation_n}</p>
-  <p><a href="#register">{$register}</a> o <a href="#main">{$login}</a></p>
-  </div>
+    <a href="/reset.php">{$forgot_password}</a><br />
+    <a href="#register">{$register}!</a>
+</form>
+</div>
+</div>
 
-  <div data-role="page" id="register">
+<div data-role="page" id="presentation">
     <div data-role="header" data-id="header">
-      <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/" style="color: #000">NERDZ <small>mobile</small></a></div>
+        <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/" style="color: #000">NERDZ <small>mobile</small></a></div>
+    </div>
+    <p>{$presentation_n}</p>
+    <p><a href="#register">{$register}</a> o <a href="#main">{$login}</a></p>
+</div>
+
+<div data-role="page" id="register">
+    <div data-role="header" data-id="header">
+        <div id="title_icons" style="padding-top: 1em; font-weight: bold"><a href="/" style="color: #000">NERDZ <small>mobile</small></a></div>
     </div>
     <form id="regfrm" class="page">
-      <p>{$register}</p>
+        <p>{$register}</p>
         <input type="text" name="username" placeholder="{$username}" required /><br />
         <input type="text" name="name" placeholder="{$name}" required /><br />
         <input type="text" name="surname" placeholder="{$surname}" required /><br />
         <input type="text" name="email" placeholder="{$email}" required /><br />
         <input type="password" name="password" placeholder="{$password}" required /><br />
-{$gender}:<select name="gender" data-mini="true">
+        {$gender}:<select name="gender" data-mini="true">
             <option value="1">{$male}</option>
             <option value="2">{$female}</option>
-          </select><br/>
-{$birth_date}:<select name="birth_day" data-mini="true">
-               <option value="-1">{$day}</option>
-               {loop="days_a"}
-               <option value="{$value}">{$value}</option>
-               {/loop}
-             </select>
-             <select name="birth_month" data-mini="true">
-               <option value="-1">{$month}</option>
-               {loop="months_a"}
-               <option value="{$value}">{$value}</option>
-               {/loop}
-              </select>
-              <select name="birth_year" data-mini="true">
-                <option value="-1">{$year}</option>
-                {loop="years_a"}
-                <option value="{$value}">{$value}</option>
-                {/loop}
-              </select><br />
-              <br />
-              {$timezone}:<br/>
-                <select name="timezone" data-mini="true">
-                  {loop="timezones_a"}
-                  <option value="{$value}">{$value}</option>
-                  {/loop}
-                </select><br />
-              {$captcha}:
-                    <div>
-                        <img src="{$captchaurl_n}#" alt="" id="captcha" title="captcha" style="border: 1px solid #FFF" width="90" height="30" />
-                        &nbsp;<span onclick="N.reloadCaptcha()" style="font-size:6pt; cursor: pointer">{$reload_captcha}</span>
-                    </div>
-                    <div>
-                        <input type="text" id="cptxt" name="captcha" required />
-                    </div>
-                    <br />
-                <input type="submit" value="{$register}" />
-                <br/>
-                <div class="error" id="error"></div>
-                <div id="done" class="error" style="color: #00FF00"></div>
-                <a href="#main">{$login}</a><br/><br/>
+        </select><br/>
+        {$birth_date}:<select name="birth_day" data-mini="true">
+            <option value="-1">{$day}</option>
+            {loop="days_a"}
+            <option value="{$value}">{$value}</option>
+            {/loop}
+        </select>
+        <select name="birth_month" data-mini="true">
+            <option value="-1">{$month}</option>
+            {loop="months_a"}
+            <option value="{$value}">{$value}</option>
+            {/loop}
+        </select>
+        <select name="birth_year" data-mini="true">
+            <option value="-1">{$year}</option>
+            {loop="years_a"}
+            <option value="{$value}">{$value}</option>
+            {/loop}
+        </select><br />
+        <br />
+        {$timezone}:<br/>
+        <select name="timezone" data-mini="true">
+            {loop="timezones_a"}
+            <option value="{$value}">{$value}</option>
+            {/loop}
+        </select><br />
+        {$captcha}:
+        <div>
+            <img src="{$captchaurl_n}#" alt="" id="captcha" title="captcha" style="border: 1px solid #FFF" width="90" height="30" />
+            &nbsp;<span onclick="N.reloadCaptcha()" style="font-size:6pt; cursor: pointer">{$reload_captcha}</span>
+        </div>
+        <div>
+            <input type="text" id="cptxt" name="captcha" required />
+        </div>
+        <br />
+        <input type="submit" value="{$register}" />
+        <br/>
+        <div class="error" id="error"></div>
+        <div id="done" class="error" style="color: #00FF00"></div>
+        <a href="#main">{$login}</a><br/><br/>
     </form>
 </div>   
 
 
-   <script type="application/javascript">
-   
-    $("#regfrm").on('submit',function(event) {
-        event.preventDefault();
-        N.json.register($("#regfrm").serialize(),function(obj) {
-            
-            if(obj.status == 'error')
-            {
-                $("#error").html(obj.message.replace(/\n/g,"<br />"));
-                $("#cptxt").val("");
-                N.reloadCaptcha();
-            }
-            else if(obj.status == 'ok')
-            {
-                $("#error").hide();
-                $("#done").html(obj.message);
-                setTimeout(function() {
-                    window.location.reload();
-                }, 1500);
-            }
-        });
+<script type="application/javascript">
+$("#regfrm").on('submit',function(event) {
+    event.preventDefault();
+    N.json.register($("#regfrm").serialize(),function(obj) {
+
+        if(obj.status == 'error')
+        {
+            $("#error").html(obj.message.replace(/\n/g,"<br />"));
+            $("#cptxt").val("");
+            N.reloadCaptcha();
+        }
+        else if(obj.status == 'ok')
+        {
+            $("#error").hide();
+            $("#done").html(obj.message);
+            setTimeout(function() {
+                window.location.reload();
+            }, 1500);
+        }
     });
-          $("#loginfrm").on('submit',function(event) {
-                event.preventDefault();
-                var t = $("#login_msg");
-                N.json.login($("#loginfrm").serialize(), function(r) {
-                    if(r.status == 'ok')
-                    {
-                        t.html(r.message);
-                        setTimeout(function() {
-                            document.location.reload();
-                        },1500);
-                    }
-                    else
-                    {
-                        t.html('<h2 class="error">'+ r.message + '</h2>');
-                        setTimeout(function() {
-                            t.html("");
-                        },1500);
-                    }
-                });
-            });
-        </script>
+});
+$("#loginfrm").on('submit',function(event) {
+    event.preventDefault();
+    var t = $("#login_msg");
+    N.json.login($("#loginfrm").serialize(), function(r) {
+        if(r.status == 'ok')
+        {
+            t.html(r.message);
+            setTimeout(function() {
+                document.location.reload();
+            },1500);
+        }
+        else
+        {
+            t.html('<h2 class="error">'+ r.message + '</h2>');
+            setTimeout(function() {
+                t.html("");
+            },1500);
+        }
+    });
+});
+</script>
