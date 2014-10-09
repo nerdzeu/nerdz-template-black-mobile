@@ -118,6 +118,7 @@
                 N.html.project.getPostList(num, $("#postlist").data('id'),function(data) {
                     plist.html(data);
                     load = true;
+                    window.fixHeights();
                 });
             });
             
@@ -145,6 +146,7 @@
                                 if(data.length > 0) {
                                     plist.append(data);
                                     load = true;
+                                    window.fixHeights();
                                 }
                             });
                         }

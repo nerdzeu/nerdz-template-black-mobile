@@ -244,6 +244,7 @@
                 N.html.profile.getPostList(num, plist.data('id'),function(data) {
                     plist.html(data);
                     load = true;
+                    window.fixHeights();
                 });
             });
             
@@ -264,16 +265,14 @@
                     if(load)
                     {
                         load = false;
-
-                        if(plist.data('mode') == 'std') {
-                            N.html.profile.getPostListBeforeHpid(num, plist.data('id'), hpid,function(data) {
-                                $("#"+divId).remove();
-                                if(data.length > 0) {
-                                    plist.append(data);
-                                    load = true;
-                                }
-                            });
-                        }
+                        N.html.profile.getPostListBeforeHpid(num, plist.data('id'), hpid,function(data) {
+                            $("#"+divId).remove();
+                            if(data.length > 0) {
+                                plist.append(data);
+                                load = true;
+                                window.fixHeights();
+                            }
+                        });
                     }
                 }
             });

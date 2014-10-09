@@ -485,7 +485,7 @@ ul.nav li {
 .nerdz_message > div {
     box-shadow: 0 0 0 #000;
 }
-.nerdz_message > div.compressed {
+.nerdz_message > div.compressed, .news > div.compressed {
     width: 100%;
     max-height: 200px;
     overflow: hidden;
