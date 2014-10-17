@@ -19,7 +19,19 @@ if ( !String.prototype.autoLink ) {
 $( document ).bind( 'mobileinit', function ( ) {
     $.mobile.ajaxEnabled = false;
 } );
+
 $( document ).ready( function ( ) {
+
+    var autoLink = function(form) {
+        $(form).find('textarea').each(function(index, textarea) {
+            console.log(index, textarea.value);
+            textarea.value = textarea.value.autoLink();
+            console.log(textarea.value);
+        });
+    };
+
+    $( 'form' ).bind('submit', function(e) { autoLink(this) });
+
     $( 'aside' ).css( 'height', $( window ).height( ) - 42 );
 
     $( window ).resize( function ( ) {
@@ -286,7 +298,7 @@ $( document ).ready( function ( ) {
                 }
                 N.json.pm.send( {
                     to: $( '#to' ).val( ),
-                    message: $( '#message' ).val( ).autoLink( )
+                    message: $( '#message' ).val( )
                 }, function ( d ) {
                     f = $( '#pm_list_f' );
                     f.text( d.status );
@@ -375,6 +387,10 @@ $( document ).ready( function ( ) {
         e.preventDefault( );
         $( this ).parent( ).toggleClass( 'qu_main-extended' );
     } );
+
+
+    plist.on('submit', 'form', function(e) { autoLink(this); });
+
     window.fixHeights = function ( ) {
         plist.find( ".nerdz_message, .news" ).each( function ( ) {
             var el = $( this ).find( 'div:first' );
@@ -459,7 +475,7 @@ $( document ).ready( function ( ) {
         error.html( N.getLangData( ).LOADING );
         N.json[ plist.data( 'type' ) ].addComment( {
             hpid: hpid,
-            message: $( this ).find( 'textarea' ).eq( 0 ).val( ).autoLink( )
+            message: $( this ).find( 'textarea' ).eq( 0 ).val( )
         }, function ( d ) {
             if ( d.status === 'ok' ) {
                 if ( hcid && last ) {
