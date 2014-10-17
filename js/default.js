@@ -24,9 +24,7 @@ $( document ).ready( function ( ) {
 
     var autoLink = function(form) {
         $(form).find('textarea').each(function(index, textarea) {
-            console.log(index, textarea.value);
             textarea.value = textarea.value.autoLink();
-            console.log(textarea.value);
         });
     };
 
