@@ -13,6 +13,8 @@
              * http://stackoverflow.com/questions/10214083/how-to-bind-mobileinit-event-in-jquery-mobile
              */
             "js/default.js",
+            "js/jquery.caret.js",
+            "js/jquery.atwho.js",
             "https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js",
             {
                 "lang": [

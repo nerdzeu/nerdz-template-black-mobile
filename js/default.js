@@ -22,6 +22,41 @@ $( document ).bind( 'mobileinit', function ( ) {
 
 $( document ).ready( function ( ) {
 
+    var bbCodes = {
+        list: [
+            "s", "user", "project", "img", "b", "cur", "small", "big", "del",
+            "u", "gist", "youtube", "yt",  "m", "math", "quote", "spoiler",
+            "url", "video", "twitter", "music",
+            { name: "url=", hasParam: true, useQuotes: true, paramDesc: "url"},
+            { name: "code", hasParam: true, paramDesc: "lang" },
+            { name: "wiki", hasParam: true, paramDesc: "lang" },
+            { name: "quote=", hasParam: true },
+            { name: "spoiler=", hasParam: true, paramDesc: "label" },
+            { name: "hr", isEmpty: true }
+        ],
+        byName: function (search) {
+            // Thank you ProTheme <3
+            if (search === "yt" || search === "youtube") return "video";
+            else if (search == "s") return "del";
+            for (var i = 0; i < this.list.length; i++)
+            {
+                if ((typeof this.list[i] === 'object' &&
+                    this.list[i].name === search) || this.list[i] === search)
+                    return this.list[i];
+            }
+            return null;
+        },
+        getNames: function() {
+            var ret = [];
+            for (var i = 0; i < this.list.length; i++)
+            {
+                ret.push (typeof this.list[i] === 'object' ?
+                    this.list[i].name : this.list[i]);
+            }
+            return ret;
+        }
+    };
+
     var autoLink = function(form) {
         $(form).find('textarea').each(function(index, textarea) {
             textarea.value = textarea.value.autoLink();
@@ -379,6 +414,127 @@ $( document ).ready( function ( ) {
         e.preventDefault( );
         $( this ).parent( ).find( "ul.subnav" ).toggle( 'fast' );
     } );
+
+    $( "body" ).on( "focus", "textarea", function () {
+        var $me = $(this), next_offset = [], old_len = 0,  fired = false;
+        if ($me.data ("ac-enabled")) return;
+        $me.data ("ac-enabled", true);
+        $me.atwho({
+            at: "@",
+            data: N.following,
+            start_with_space: false,
+            limit: 10, 
+            callbacks: {
+                inserting_wrapper: function($inputor, content, suffix) {
+                    return "[user]" + content.substr(1) + "[/user] ";
+                }
+            }
+        }).atwho({
+            at: "[",
+            data: bbCodes.getNames(),
+            start_with_space: false,
+            callbacks: {
+                before_insert: function (val, $li) {
+                    var bbcode = bbCodes
+                        .byName ($li.data ("value")), what, indch;
+                    if (typeof bbcode !== 'object')
+                        what  = "[" + bbcode + "][/" + bbcode + "]",
+                        indch = "]";
+                    else
+                    {
+                        var name = bbcode.name.replace (/=$/, "");
+                        what = "[" + name;
+                        if (bbcode.hasParam)
+                            what += "=" +(bbcode.useQuotes ? '""': ""),
+                            indch = bbcode.useQuotes ? '"' : "=";
+                        else
+                            indch = "]";
+                        what += "]";
+                        if (!bbcode.isEmpty)
+                            what += "[/" + name + "]";
+                    }
+                    $li.data ("index", indch).data ("final", what);
+                    return what;
+                },
+                tpl_eval: function (tpl, map) {
+                    var base = "<li data-value='" + map["name"] + "'>",
+                        bbcode = bbCodes.byName (map["name"]),
+                        isObj  = typeof bbcode === 'object';
+                    map["name"] = map["name"].replace (/=$/, "");
+                    base += "[" + map["name"];
+                    if (isObj && bbcode.hasParam)
+                        base += "=" +
+                            (bbcode.paramDesc ?
+                             bbcode.paramDesc : "...");
+                    base += "]";
+                    if (!isObj || !bbcode.isEmpty)
+                        base += "...[/" + map["name"] + "]";
+                    return base + "</li>";
+                },
+                highlighter: function (li, query) {
+                    if (!query)
+                        return li;
+                    return li.replace (
+                        new RegExp (">(.+?)(" + query.replace (
+                            /([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"
+                        ) + ")", "gi"),
+                        function (s, $1, $2) {
+                            if ($1 === "[")
+                            {
+                                $1 = "";
+                                $2 = "[" + $2;
+                            }
+                            return ">" + $1 +
+                                "<strong>" + $2 + "</strong>";
+                        }
+                    );
+                },
+                matcher: function (flag, subtext) {
+                    var match;
+                    match = /\[([A-Za-z0-9_+-=\]]*)$/gi.exec (subtext);
+                    if (match)
+                        return match[1];
+                    return null;
+                }
+            }
+        }).on ("inserted.atwho", function (e, $li) {
+            if (!$li.data ("final")) return; // not a bbcode
+            var str = $li.data ("final"), $me = $(this),
+                pos = $me.caret ("pos"), v = $me.val(), index;
+            // remove the trailing space from the textbox
+            $me.val (v.substr (0, pos - 1) + v.substr (pos));
+            index = str.indexOf ($li.data ("index")),
+            next_offset = pos - str.length;
+            if ($li.data ("index") !== "]")
+                next_offset += str.indexOf ("]");
+            else
+                next_offset += str.indexOf ("]", index + 1);
+            old_len = $(this).val().length;
+            if (index === -1) return console.error ("index = -1 :(");
+            $(this).caret ("pos", pos - str.length + index);
+            fired = true;
+        }).on ("keydown", function (e) {
+            if (next_offset !== -1 && e.which === 9 && !fired)
+            {
+                e.preventDefault();
+                $(this).caret ("pos", next_offset);
+                next_offset = -1;
+                old_len = 0;
+            }
+            else if (fired)
+                fired = false;
+        }).on ("keyup", function() {
+            if (next_offset !== -1)
+            {
+                var $me = $(this), curr = $me.val().length,
+                    delta = curr - old_len;
+                old_len = curr;
+                next_offset += delta;
+                if ($me.caret ("pos") >= next_offset)
+                    next_offset = -1, old_len = 0;
+            }
+        });
+    });
 
     var plist = $( '#postlist' );
     plist.on( 'click', '.qu_user', function ( e ) {
