@@ -757,12 +757,6 @@ ul.topnav li ul.subnav li {
     height: 10px;
 }
 
-.pid {
-    position: absolute;
-    /* father with position relative*/
-    top: 0px;
-    right: 15px;
-}
 .icon_expand {
     cursor: pointer;
     display: block;
