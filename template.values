@@ -22,7 +22,7 @@
                     "EXPAND", "OPEN", "EDIT",
                     "HIDE",
                     "ARE_YOU_SURE",
-                    "CANCEL"
+                    "CANCEL", "MESSAGE_NOT_SENT"
                 ]
             }
         ],
