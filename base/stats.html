@@ -9,6 +9,21 @@
 
     {$total_online_users}: {$totonlineusers_n}<br />
     {$hidden_users}:  {$tothiddenusers_n}<br />
+        {$total_online_guests}: {$totonlineguests_n}<br />
+        {$total_online_bots}: {$totonlinebots_n}<br /><br />
+        {if="!empty($bots_a)"}
+            {$list_of_bots}:<br />
+            <div class="light">
+            {loop="bots_a"}
+                {if="$counter % 10 == 0"} <br /> {/if}
+                {$value.name_n}&nbsp;
+            {/loop}
+            </div>
+        {/if}
+        <br />
+        <span style="font-style:italic">
+            {$last_update}: {$lastupdate_n}
+        </span>
     <br />
 </article>
 <aside id="right_col">
