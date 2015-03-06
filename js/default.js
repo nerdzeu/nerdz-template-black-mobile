@@ -72,7 +72,7 @@ $( document ).ready( function ( ) {
                     return;
                 }
             } else {
-                sessionStorage[interactiveStoreName] = JSON.stringify(emptyStore);
+                sessionStorage[interactiveStoreName] = JSON.stringify(interactiveEmptyStore);
             }
 
             if (query.length < 2) {
