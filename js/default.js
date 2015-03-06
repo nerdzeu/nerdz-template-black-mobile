@@ -1,8 +1,8 @@
 if ( !String.prototype.autoLink ) {
     String.prototype.autoLink = function ( ) {
         var str = this,
-            pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse|video|music)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse|video|music)\])/gi,
-            urls = [ ];
+        pattern = /(?!\[(?:img|url|code|gist|yt|youtube|noparse|video|music)[^\]]*?\])(^|\s+)((((ht|f)tps?:\/\/)|[www])([a-z\-0-9]+\.)*[\-\w]+(\.[a-z]{2,4})+(\/[\+%:\w\_\-\?\=\#&\.\(\)]*)*(?![a-z]))(?![^\[]*?\[\/(img|url|code|gist|yt|youtube|noparse|video|music)\])/gi,
+        urls = [ ];
         try {
             urls = decodeURIComponent( this.replace( /%([^\d].)/g, "%25$1" ) ).match( pattern );
         } catch ( e ) {}
@@ -21,18 +21,22 @@ $( document ).bind( 'mobileinit', function ( ) {
 } );
 
 $( document ).ready( function ( ) {
+    N.userTagDisplayTpl = '<li><img alt="${username_n}" class="gravatar-home" src="${gravatarurl_n}&amp;s=32" height="32" width="32"><div class="follow-list-container-home">${username_n}</div></li>';
+    N.userTagInsertTpl = "[user]${username_n}[/user]";
+    N.projectTagDisplayTpl = '<li><div class="follow-list-container-home">${name_n}</li>';
+    N.projectTagInsertTpl = "[user]${username_n}[/user]";
 
     var bbCodes = {
         list: [
             "s", "user", "project", "img", "b", "cur", "small", "big", "del",
             "u", "gist", "youtube", "yt",  "m", "math", "quote", "spoiler",
-            "url", "video", "twitter", "music",
-            { name: "url=", hasParam: true, useQuotes: true, paramDesc: "url"},
-            { name: "code", hasParam: true, paramDesc: "lang" },
-            { name: "wiki", hasParam: true, paramDesc: "lang" },
-            { name: "quote=", hasParam: true },
-            { name: "spoiler=", hasParam: true, paramDesc: "label" },
-            { name: "hr", isEmpty: true }
+            "url", "video", "twitter", "music", "i",
+                { name: "url=", hasParam: true, useQuotes: true, paramDesc: "url"},
+                { name: "code", hasParam: true, paramDesc: "lang" },
+                    { name: "wiki", hasParam: true, paramDesc: "lang" },
+                    { name: "quote=", hasParam: true },
+                        { name: "spoiler=", hasParam: true, paramDesc: "label" },
+                        { name: "hr", isEmpty: true }
         ],
         byName: function (search) {
             // Thank you ProTheme <3
@@ -41,7 +45,7 @@ $( document ).ready( function ( ) {
             for (var i = 0; i < this.list.length; i++)
             {
                 if ((typeof this.list[i] === 'object' &&
-                    this.list[i].name === search) || this.list[i] === search)
+                            this.list[i].name === search) || this.list[i] === search)
                     return this.list[i];
             }
             return null;
@@ -51,11 +55,47 @@ $( document ).ready( function ( ) {
             for (var i = 0; i < this.list.length; i++)
             {
                 ret.push (typeof this.list[i] === 'object' ?
-                    this.list[i].name : this.list[i]);
+                        this.list[i].name : this.list[i]);
             }
             return ret;
         }
     };
+
+    window.interactiveStoreName = 'autocompletion';
+    window.interactiveEmptyStore = {'users': {}, 'projects': {}};
+    window.interactiveRemoteFilter = function(type) {
+        return function(query, callback) {
+            if(sessionStorage[interactiveStoreName]) {
+                var store = JSON.parse(sessionStorage[interactiveStoreName]);
+                if (store[type][query]) {
+                    callback(store[type][query]);
+                    return;
+                }
+            } else {
+                sessionStorage[interactiveStoreName] = JSON.stringify(emptyStore);
+            }
+
+            if (query.length < 2) {
+                callback(JSON.parse(sessionStorage[interactiveStoreName])[type][query]);
+                return;
+            }
+
+            $.getJSON("/i/"+type+".ajax.php", {q: query, count: 10}, function(data) {
+                var store = JSON.parse(sessionStorage[interactiveStoreName]);
+                store[type][query] = data;
+                sessionStorage[interactiveStoreName] = JSON.stringify(store);
+                callback(data);
+            });
+        };
+    };
+    window.interactiveBeforeInsert = function(type) {
+        return function (val, $li) {
+            $li.data('final', val).data ("index", "[/"+(type == 'users' ? 'user' : 'project') +"]");
+            return val;
+        };
+    };
+    window.interactiveSorter = function(query, items, key) { return items; };
+
 
     $(window).on('beforeunload', function() {
         if (!$("#postlist").length) return;
@@ -139,7 +179,7 @@ $( document ).ready( function ( ) {
         window.open( '/bbcode.php' );
     } );
     var append_theme = '',
-        _h = $( 'head' );
+    _h = $( 'head' );
     if ( localStorage.getItem( 'has-dark-theme' ) === 'yep' ) {
         append_theme = '?skin=sons-of-obsidian';
     }
@@ -155,7 +195,7 @@ $( document ).ready( function ( ) {
             $( '#pm_list' ).remove( );
         }
         var list = $( '#notify_list' ),
-            old = $( this ).html( );
+        old = $( this ).html( );
         var nold = parseInt( old );
         if ( list.length ) {
             if ( isNaN( nold ) || nold === 0 ) {
@@ -197,7 +237,7 @@ $( document ).ready( function ( ) {
     window.getParameterByName = function getParameterByName( name ) {
         name = name.replace( /[\[]/, "\\[" ).replace( /[\]]/, "\\]" );
         var regex = new RegExp( "[\\?&]" + name + "=([^&#]*)" ),
-            results = regex.exec( location.search );
+        results = regex.exec( location.search );
         return results === null ? "" : decodeURIComponent( results[ 1 ].replace( /\+/g, " " ) );
     };
     $( "#footersearch" ).on( 'submit', function ( e ) {
@@ -252,7 +292,7 @@ $( document ).ready( function ( ) {
         if ( $( '#notify_list' ).length ) $( '#notify_list' ).remove( );
         e.preventDefault( );
         var list = $( '#pm_list' ),
-            old = $( this ).html( );
+        old = $( this ).html( );
         var nold = parseInt( old );
         if ( list.length ) {
             b = $( '#pm_list_b' );
@@ -438,7 +478,7 @@ $( document ).ready( function ( ) {
     };
     $( "#follow, .follow" ).click( function ( ) {
         var me = $( this ),
-            oldValue = me.html( );
+        oldValue = me.html( );
         me.html( '...' );
         var type = me.hasClass( 'project' ) ? 'project' : 'profile';
         N.json[ type ].follow( {
@@ -449,7 +489,7 @@ $( document ).ready( function ( ) {
     } );
     $( "#unfollow, .unfollow" ).click( function ( ) {
         var me = $( this ),
-            oldValue = me.html( );
+        oldValue = me.html( );
         me.html( '...' );
         var type = me.hasClass( 'project' ) ? 'project' : 'profile';
         N.json[ type ].unfollow( {
@@ -470,20 +510,17 @@ $( document ).ready( function ( ) {
         $me.data ("ac-enabled", true);
         $me.atwho({
             at: "@",
-            data: N.following,
-            start_with_space: false,
-            limit: 10, 
+            displayTpl: N.userTagDisplayTpl,
+            insertTpl:  N.userTagInsertTpl,
             callbacks: {
-                inserting_wrapper: function($inputor, content, suffix) {
-                    return "[user]" + content.substr(1) + "[/user] ";
-                }
+                sorter:  window.interactiveSorter,
+                remoteFilter: window.interactiveRemoteFilter('users')
             }
         }).atwho({
             at: "[",
             data: bbCodes.getNames(),
-            start_with_space: false,
             callbacks: {
-                before_insert: function (val, $li) {
+                beforeInsert: function (val, $li) {
                     var bbcode = bbCodes
                         .byName ($li.data ("value")), what, indch;
                     if (typeof bbcode !== 'object') {
@@ -507,10 +544,10 @@ $( document ).ready( function ( ) {
                     $li.data ("index", indch).data ("final", what);
                     return what;
                 },
-                tpl_eval: function (tpl, map) {
+                tplEval: function (tpl, map) {
                     var base = "<li data-value='" + map.name + "'>",
-                        bbcode = bbCodes.byName (map.name),
-                        isObj  = typeof bbcode === 'object';
+                    bbcode = bbCodes.byName (map.name),
+                    isObj  = typeof bbcode === 'object';
                     map.name = map.name.replace (/=$/, "");
                     base += "[" + map.name;
                     if (isObj && bbcode.hasParam)
@@ -526,19 +563,19 @@ $( document ).ready( function ( ) {
                     if (!query)
                         return li;
                     return li.replace (
-                        new RegExp (">(.+?)(" + query.replace (
-                            /([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"
-                        ) + ")", "gi"),
-                        function (s, $1, $2) {
-                            if ($1 === "[")
-                            {
-                                $1 = "";
-                                $2 = "[" + $2;
+                            new RegExp (">(.+?)(" + query.replace (
+                                        /([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"
+                                        ) + ")", "gi"),
+                            function (s, $1, $2) {
+                                if ($1 === "[")
+                                {
+                                    $1 = "";
+                                    $2 = "[" + $2;
+                                }
+                                return ">" + $1 +
+                                    "<strong>" + $2 + "</strong>";
                             }
-                            return ">" + $1 +
-                                "<strong>" + $2 + "</strong>";
-                        }
-                    );
+                            );
                 },
                 matcher: function (flag, subtext) {
                     var match;
@@ -548,12 +585,30 @@ $( document ).ready( function ( ) {
                     return null;
                 }
             }
+        }).atwho({
+            at: "[user]",
+            displayTpl: N.userTagDisplayTpl,
+            insertTpl:  "[user]${username_n}",
+            callbacks: {
+                sorter: window.interactiveSorter,
+                remoteFilter: window.interactiveRemoteFilter('users'),
+                beforeInsert: window.interactiveBeforeInsert('users')
+            }
+        }).atwho({
+            at: "[project]",
+            displayTpl: N.projectTagDisplayTpl,
+            insertTpl:  "[project]${name_n}",
+            callbacks: {
+                sorter: window.interactiveSorter,
+                remoteFilter: window.interactiveRemoteFilter('projects'),
+                beforeInsert: window.interactiveBeforeInsert('projects')
+            }
         }).on ("inserted.atwho", function (e, $li) {
-            if (!$li.data ("final")) return; // not a bbcode
             var str = $li.data ("final"), $me = $(this),
-                pos = $me.caret ("pos"), v = $me.val(), index;
+            pos = $me.caret ("pos"), v = $me.val(), index;
             // remove the trailing space from the textbox
             $me.val (v.substr (0, pos - 1) + v.substr (pos));
+            if (!$li.data ("final")) return; // not a bbcode
             index = str.indexOf ($li.data ("index"));
             next_offset = pos - str.length;
             if ($li.data ("index") !== "]")
@@ -561,9 +616,27 @@ $( document ).ready( function ( ) {
             else
                 next_offset += str.indexOf ("]", index + 1);
             old_len = $(this).val().length;
-            if (index === -1) return console.error ("index = -1 :(");
+            if (index === -1) return;
             $(this).caret ("pos", pos - str.length + index);
             fired = true;
+        }).atwho({
+            at: "[user]",
+            displayTpl: N.userTagDisplayTpl,
+            insertTpl:  "[user]${username_n}",
+            callbacks: {
+                sorter: window.interactiveSorter,
+                remoteFilter: window.interactiveRemoteFilter('users'),
+                beforeInsert: window.interactiveBeforeInsert('users')
+            }
+        }).atwho({
+            at: "[project]",
+            displayTpl: N.projectTagDisplayTpl,
+            insertTpl:  "[project]${name_n}",
+            callbacks: {
+                sorter: window.interactiveSorter,
+                remoteFilter: window.interactiveRemoteFilter('projects'),
+                beforeInsert: window.interactiveBeforeInsert('projects')
+            }
         }).on ("keydown", function (e) {
             if (next_offset !== -1 && e.which === 9 && !fired)
             {
@@ -578,7 +651,7 @@ $( document ).ready( function ( ) {
             if (next_offset !== -1)
             {
                 var $me = $(this), curr = $me.val().length,
-                    delta = curr - old_len;
+                delta = curr - old_len;
                 old_len = curr;
                 next_offset += delta;
                 if ($me.caret ("pos") >= next_offset) {
@@ -614,8 +687,8 @@ $( document ).ready( function ( ) {
 
     plist.on( 'click', '.more', function ( ) {
         var me = $( this ),
-            par = me.parent( ),
-            jenk = par.prev( );
+        par = me.parent( ),
+        jenk = par.prev( );
         if ( me.data( 'busy' ) == 'godyes' ) return;
         me.data( 'busy', 'godyes' );
         // obtain the real height of the post and do some hardcore animations
@@ -674,10 +747,10 @@ $( document ).ready( function ( ) {
     plist.on( 'submit', '.frmcomment', function ( e ) {
         e.preventDefault( );
         var last, hcid, hpid = $( this ).data( 'hpid' ),
-            refto = $( '#commentlist' + hpid ),
+        refto = $( '#commentlist' + hpid ),
             error = $( this ).find( '.error' ).eq( 0 ),
             pattern = 'div[id^="c"]',
-            comments = refto.find( pattern );
+                comments = refto.find( pattern );
         if ( comments.length ) {
             last = comments.length > 1 ? comments.eq( comments.length - 2 ) : null;
             hcid = last ? last.data( 'hcid' ) : 0;
@@ -694,8 +767,8 @@ $( document ).ready( function ( ) {
                         hcid: hcid
                     }, function ( d ) {
                         var form = refto.find( 'form.frmcomment' ).eq( 0 ),
-                            pushBefore = form.parent( ),
-                            newComments = $( '<div>' + d + '</div>' ).find( pattern ),
+                        pushBefore = form.parent( ),
+                        newComments = $( '<div>' + d + '</div>' ).find( pattern ),
                             internalLengthPointer = comments.length,
                             lastComment = comments.last( );
                         if ( comments.length > 1 ) {
@@ -749,7 +822,7 @@ $( document ).ready( function ( ) {
     } );
     plist.on( 'click', ".oldrev", function ( ) {
         var me = $( this ),
-            refto = $( this ).data( 'refto' );
+        refto = $( this ).data( 'refto' );
         var revno = parseInt( $( this ).data( 'revisions' ) );
         var func = "getRevision";
         var obj = {
@@ -771,7 +844,7 @@ $( document ).ready( function ( ) {
         if ( revno > 0 ) {
             N.json[ plist.data( 'type' ) ][ func ]( obj, function ( r ) {
                 var tagTime = me.parent( ).parent( ),
-                    timeVal = null;
+                timeVal = null;
                 if ( id === 'hcid' ) {
                     tagTime = tagTime.find( 'a[id^="ndc"]' );
                 } else {
@@ -788,7 +861,7 @@ $( document ).ready( function ( ) {
                     me.parent( ).append( s );
                 }
                 var div = null,
-                    pidTag = null;
+                pidTag = null;
                 if ( id === 'hcid' ) {
                     div = $( "#" + refto ).find( ".nerdz_comments" );
                     pidTag = $( document.createElement( "a" ) );
@@ -844,7 +917,7 @@ $( document ).ready( function ( ) {
 
     plist.on( 'click', '.newrev', function ( ) {
         var me = $( this ),
-            refto = $( this ).data( 'refto' );
+        refto = $( this ).data( 'refto' );
         var func = "getRevision";
         var id = 'hpid';
         var tagTime = me.parent( ).parent( ).find( 'time' );
@@ -903,8 +976,8 @@ $( document ).ready( function ( ) {
     } );
     plist.on( 'click', '.vote', function ( ) {
         var curr = $( this ),
-            cont = curr.parent( ),
-            tnum = cont.parent( ).children( '.thumbs-counter' ),
+        cont = curr.parent( ),
+        tnum = cont.parent( ).children( '.thumbs-counter' ),
             func = 'thumbs',
             obj = {
                 hpid: cont.data( 'refto' )
@@ -949,8 +1022,8 @@ $( document ).ready( function ( ) {
 
     plist.on( 'click', '.more_btn', function ( ) {
         var moreBtn = $( this ),
-            commentList = moreBtn.parents( 'div[id^="commentlist"]' ),
-            hpid = /^post(\d+)$/.exec( commentList.parents( 'div[id^="post"]' ).attr( 'id' ) )[ 1 ],
+        commentList = moreBtn.parents( 'div[id^="commentlist"]' ),
+        hpid = /^post(\d+)$/.exec( commentList.parents( 'div[id^="post"]' ).attr( 'id' ) )[ 1 ],
             intCounter = moreBtn.data( 'morecount' ) || 0;
         if ( moreBtn.data( 'inprogress' ) === '1' ) return;
         moreBtn.data( 'inprogress', '1' ).text( N.getLangData( ).LOADING + '...' );
@@ -977,8 +1050,8 @@ $( document ).ready( function ( ) {
     } );
     plist.on( 'click', '.all_comments_btn', function ( ) {
         var btn = $( this ),
-            btnDb = btn.parent( ).parent( ),
-            moreBtn = btnDb.find( '.more_btn' ),
+        btnDb = btn.parent( ).parent( ),
+        moreBtn = btnDb.find( '.more_btn' ),
             commentList = btn.parents( 'div[id^="commentlist"]' ),
             hpid = /^post(\d+)$/.exec( commentList.parents( 'div[id^="post"]' ).attr( 'id' ) )[ 1 ];
         if ( btn.data( 'working' ) === '1' || moreBtn.data( 'inprogress' ) === '1' ) return;
@@ -991,7 +1064,7 @@ $( document ).ready( function ( ) {
             btn.data( 'working', '0' ).text( btn.data( 'localization' ) ).parent( ).hide( );
             btnDb.find( '.scroll_bottom_hidden' ).show( ).find( '.scroll_bottom_separator' ).hide( );
             var parsed = $( '<div>' + res + '</div>' ),
-                push = $( '#commentlist' + hpid );
+            push = $( '#commentlist' + hpid );
             moreBtn.hide( ).data( 'morecount', Math.ceil( parseInt( parsed.find( '.commentcount' ).html( ) ) / 10 ) );
             push.find( 'div[id^="c"]' ).remove( );
             push.find( 'form.frmcomment' ).eq( 0 ).parent( ).before( res );
@@ -999,8 +1072,8 @@ $( document ).ready( function ( ) {
     } );
     plist.on( 'click', '.qu_ico', function ( ) {
         var area = $( "#" + $( this ).data( 'refto' ) ),
-            msg = "[quote=" + $( this ).data( 'hcid' ) + "|" + $( this ).data( 'type' ) + "]",
-            cpos = area[ 0 ].selectionStart,
+        msg = "[quote=" + $( this ).data( 'hcid' ) + "|" + $( this ).data( 'type' ) + "]",
+        cpos = area[ 0 ].selectionStart,
             val = area.val( ),
             intx = val.substring( 0, cpos ) + msg;
         area.focus( );
@@ -1052,7 +1125,7 @@ $( document ).ready( function ( ) {
         var refto = $( '#' + $( this ).data( 'refto' ) );
         var hpid = $( this ).data( 'hpid' );
         var me = $( this ),
-            arrow = me.children( );
+        arrow = me.children( );
         me.html( '...' );
         N.json[ plist.data( 'type' ) ].closePost( {
             hpid: hpid
@@ -1072,7 +1145,7 @@ $( document ).ready( function ( ) {
         var refto = $( '#' + $( this ).data( 'refto' ) );
         var hpid = $( this ).data( 'hpid' );
         var me = $( this ),
-            arrow = me.children( );
+        arrow = me.children( );
         me.html( '...' );
         N.json[ plist.data( 'type' ) ].openPost( {
             hpid: hpid
@@ -1090,9 +1163,9 @@ $( document ).ready( function ( ) {
     plist.on( 'click', ".edit", function ( e ) {
         e.preventDefault( );
         var refto = $( '#' + $( this ).data( 'refto' ) ),
-            hpid = $( this ).data( 'hpid' );
+        hpid = $( this ).data( 'hpid' );
         var getF = "getPost",
-            editF = "editPost";
+        editF = "editPost";
         var getObj = {
             hpid: hpid
         };
@@ -1245,7 +1318,7 @@ $( document ).ready( function ( ) {
     } );
     setInterval( function ( ) {
         var nc = $( '#notifycounter' ),
-            val = parseInt( nc.html( ) );
+        val = parseInt( nc.html( ) );
         nc.css( 'background-color', val === 0 || isNaN( val ) ? '#eee' : '#2C98C9' );
         var pc = $( '#pmcounter' );
         val = parseInt( pc.html( ) );
