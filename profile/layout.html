@@ -232,7 +232,7 @@
     </aside>
     <div id="showpostlist" style="display:none"></div>
 {if="!isset($post_n)"}
-    <script type="application/javascript">
+    <script>
         $(document).ready(function() {
             var plist = $("#postlist");
             var num = 10; {ignore} TODO PARAM? {/ignore}
@@ -282,7 +282,7 @@
         });
     </script>
 {else}
-    <script type="application/javascript">
+    <script>
     $(document).ready(function() {
             $(".showcomments").click();
     });
