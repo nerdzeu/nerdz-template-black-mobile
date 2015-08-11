@@ -670,7 +670,8 @@ pre {
 .nerdz-code-wrapper {
     border: solid white 1px;
     font-size: 110%;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 .nerdz-code-title {
     height: auto;
